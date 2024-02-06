@@ -22,6 +22,7 @@ export type Food = {
   price: string;
   discount: string;
   image: string;
+  type: string;
 };
 
 export function Foods(props: FoodsProps) {
@@ -31,6 +32,20 @@ export function Foods(props: FoodsProps) {
   console.log(allFood);
 
   const { type } = props;
+  const typeTranslate = () => {
+    if (type == "Амттан") {
+      return "appetizer";
+    }
+    if (type == "Үндсэн хоол") {
+      return "main";
+    }
+    if (type == "Салад ба зууш") {
+      return "beverage";
+    }
+    if (type == "Хямдралтай") {
+      return "onSale";
+    }
+  };
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -62,13 +77,15 @@ export function Foods(props: FoodsProps) {
       </Stack>
 
       <Grid container spacing={2}>
-        {allFood.map((item) => {
-          return (
-            <Grid item lg={3} md={4} sm={6} xs={12}>
-              <Food {...item} onClick={handleOpen} />
-            </Grid>
-          );
-        })}
+        {allFood
+          .filter((food) => food.type === typeTranslate())
+          .map((item) => {
+            return (
+              <Grid item lg={3} md={4} sm={6} xs={12}>
+                <Food {...item} onClick={handleOpen} />
+              </Grid>
+            );
+          })}
       </Grid>
       <div>
         <Modal

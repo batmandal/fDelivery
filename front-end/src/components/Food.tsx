@@ -10,9 +10,13 @@ export function Food(props: FoodProps) {
   const { name, price, onClick, image } = props;
 
   return (
-    <Stack onClick={onClick} sx={{ cursor: "pointer" }}>
-      <Stack borderRadius={2} overflow="hidden" maxHeight="186px">
-        <img src={image} alt="" />
+    <Stack onClick={onClick} sx={{ cursor: "pointer" }} gap="14px">
+      <Stack borderRadius={2} overflow="hidden" height="186px" width="100%">
+        <img
+          src={image}
+          alt=""
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+        />
       </Stack>
       <Stack>
         <Typography fontWeight={600} fontSize="18px">

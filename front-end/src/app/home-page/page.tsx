@@ -42,14 +42,39 @@ export default function HomePage() {
     <Stack style={{ position: "relative" }}>
       <Stack
         bgcolor={"#18BA51"}
-        px="120px"
         py="170px"
         style={{
           backgroundImage: "url(/Food.png)",
           position: "relative",
         }}
         width="100%"
-      ></Stack>
+      >
+        <Container
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Stack maxWidth="384px">
+            <img src="FD.png" alt="" />
+          </Stack>
+          <Stack position="relative">
+            <img src="BigMeal.png" alt="" />
+            <img
+              src="SmallMeal.png"
+              alt=""
+              style={{
+                zIndex: "20",
+                position: "absolute",
+                right: "0",
+                bottom: "0",
+              }}
+            />
+          </Stack>
+        </Container>
+      </Stack>
       <Container maxWidth="lg">
         {" "}
         <Stack direction="row" py="122px" justifyContent="space-between">
