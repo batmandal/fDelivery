@@ -29,7 +29,7 @@ export function Foods(props: FoodsProps) {
   const { allFood, loading, error, refetch } = useFetch<Food[]>(
     "http://localhost:3008/foods"
   );
-  console.log(allFood);
+  // console.log(allFood);
 
   const { type } = props;
   const typeTranslate = () => {
@@ -82,7 +82,12 @@ export function Foods(props: FoodsProps) {
           .map((item) => {
             return (
               <Grid item lg={3} md={4} sm={6} xs={12}>
-                <Food {...item} onClick={handleOpen} />
+                <Food
+                  {...item}
+                  onClick={() => {
+                    console.log(item.price, item.name, item.image);
+                  }}
+                />
               </Grid>
             );
           })}
