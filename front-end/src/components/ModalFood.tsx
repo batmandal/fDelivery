@@ -1,19 +1,18 @@
+"use client";
+
 import { Stack, Typography } from "@mui/material";
-import { ReactNode } from "react";
 
 import { CustomButton } from "@/components";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import Image from "next/image";
+import { Food } from "./Foods";
 
 type ModalProps = {
-  title: string;
-  cost: ReactNode;
-  ingredient: string;
-  onClick: any;
-};
+  onClick: () => void;
+} & Food;
 
 export function ModalFood(props: ModalProps) {
-  const { title, cost, ingredient, onClick } = props;
+  const { name, price, ingredient, image, onClick } = props;
   return (
     <Stack
       padding={4}
@@ -23,8 +22,12 @@ export function ModalFood(props: ModalProps) {
       width="fit-content"
       bgcolor="white"
     >
-      <Stack width="100%">
-        <Image src={"/Pizza.png"} width={500} height={500} alt="pizza" />
+      <Stack width="500px" height="500px" bgcolor="pink">
+        <img
+          src={`/${image}`}
+          alt=""
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+        />
       </Stack>
       <Stack gap="27px">
         <Stack alignItems="end" onClick={onClick}>
@@ -33,10 +36,10 @@ export function ModalFood(props: ModalProps) {
         <Stack gap={4} width="384px">
           <Stack>
             <Typography fontWeight={700} fontSize="28px">
-              {title}
+              {name}
             </Typography>
             <Typography fontWeight={600} fontSize="18px" color="primary">
-              {cost}₮
+              {price}₮
             </Typography>
           </Stack>
           <Stack gap="12px">

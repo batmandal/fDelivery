@@ -13,9 +13,11 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import Modal from "@mui/material/Modal";
 import { LogInModal } from "./LogIn";
+import { useAuth } from "./AuthProvider";
 
 export function Header() {
   const router = useRouter();
+  const { isLogged } = useAuth();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -74,18 +76,26 @@ export function Header() {
             </Typography>
           </Stack>
         </Stack>
-        <Stack direction="row" style={{ alignItems: "center" }}>
+        <Stack direction="row" gap={1} style={{ alignItems: "center" }}>
           <CustomInput placeholder="хайх" size="small" />
           <Choice
             name="сагс"
             icon={<ShoppingBasketOutlined />}
             onClick={() => {}}
           />
-          <Choice
-            name="нэвтрэх"
-            icon={<PersonOutlineOutlined />}
-            onClick={handleOpen}
-          />
+          {isLogged === true ? (
+            <Choice
+              name="Хэрэглэгч"
+              icon={<PersonOutlineOutlined />}
+              onClick={() => {}}
+            />
+          ) : (
+            <Choice
+              name="нэвтрэх"
+              icon={<PersonOutlineOutlined />}
+              onClick={handleOpen}
+            />
+          )}
         </Stack>
       </Container>
       <div>

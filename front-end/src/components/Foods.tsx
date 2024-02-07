@@ -5,10 +5,10 @@ import { Star } from "@/assets/svg/Star";
 import { Food } from "@/components/Food";
 import { Grid, Stack, Typography } from "@mui/material";
 
-import * as React from "react";
 import Modal from "@mui/material/Modal";
 import { ModalFood } from "./ModalFood";
 import { useFetch } from "@/hooks/useFetch";
+import { useState } from "react";
 
 // const allFood = [{ foodName: "bla", cost: "6700", img: "steak.jpeg" }];
 
@@ -23,9 +23,12 @@ export type Food = {
   discount: string;
   image: string;
   type: string;
+  ingredient: string;
 };
 
 export function Foods(props: FoodsProps) {
+  const [selectedFood, setSelectedFood] = useState<Food | null>(null);
+
   const { allFood, loading, error, refetch } = useFetch<Food[]>(
     "http://localhost:3008/foods"
   );
@@ -47,9 +50,13 @@ export function Foods(props: FoodsProps) {
     }
   };
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = (food: Food) => {
+    setSelectedFood(food);
+  };
+
+  const handleClose = () => {
+    setSelectedFood(null);
+  };
 
   return (
     <Stack gap={3}>
@@ -82,28 +89,22 @@ export function Foods(props: FoodsProps) {
           .map((item) => {
             return (
               <Grid item lg={3} md={4} sm={6} xs={12}>
-                <Food
-                  {...item}
-                  onClick={() => {
-                    console.log(item.price, item.name, item.image);
-                  }}
-                />
+                <Food {...item} onClick={handleOpen} />
               </Grid>
             );
           })}
       </Grid>
       <div>
         <Modal
-          open={open}
+          open={Boolean(selectedFood)}
           onClose={handleClose}
           sx={{ display: "grid", placeContent: "center" }}
         >
-          <ModalFood
-            onClick={handleClose}
-            title="Pizza"
-            cost={35000}
-            ingredient="cheese, beef, mushrooms, egg, potato, leaf, bacon"
-          />
+          <>
+            {selectedFood && (
+              <ModalFood onClick={handleClose} {...selectedFood} />
+            )}
+          </>
         </Modal>
       </div>
     </Stack>

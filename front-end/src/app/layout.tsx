@@ -11,6 +11,8 @@ import { CssBaseline, Stack, ThemeProvider } from "@mui/material";
 import { theme } from "@/theme";
 import { AuthProvider } from "@/components/AuthProvider";
 import { PropsWithChildren } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +34,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             </AuthProvider>
           </ThemeProvider>
           <CssBaseline />
+          <ToastContainer />
         </AppRouterCacheProvider>
       </body>
     </html>

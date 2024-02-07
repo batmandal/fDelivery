@@ -1,4 +1,6 @@
 import { api } from "@/common/axios";
+import { AxiosError } from "axios";
+import { log } from "console";
 import { useRouter } from "next/navigation";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
@@ -23,7 +25,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const login = async (email: String, password: String) => {
     try {
-      const { data } = await api.post("logIn", {
+      const { data } = await api.post("/logIn", {
         email,
         password,
       });
@@ -35,7 +37,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
       setIsLogged(true);
     } catch (error) {
-      console.log("login error");
+      if (error instanceof AxiosError) {
+        toast.warning(error.response?.data.message ?? error.message);
+      }
     }
   };
 
@@ -50,6 +54,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { token } = data;
       router.push("/");
       localStorage.setItem("token", token);
+      console.log(data.message);
+      toast.success(data.message);
     } catch (error) {
       console.log("login error");
     }

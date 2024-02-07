@@ -3,6 +3,7 @@ import { Container, Stack, Typography } from "@mui/material";
 import ButtonLink from "./Link";
 
 import { FacebookOutlined, Instagram, Twitter } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 const allLink = [
   { label: "Нүүр" },
@@ -14,6 +15,7 @@ const allLink = [
 ];
 
 export function Footer() {
+  const router = useRouter();
   return (
     <Stack
       style={{
@@ -28,7 +30,29 @@ export function Footer() {
           <FoodDelivery />
           <Stack direction="row" justifyContent="space-between" width="100%">
             {allLink.map((item) => (
-              <ButtonLink label={item.label} />
+              <ButtonLink
+                label={item.label}
+                onClick={() => {
+                  if (item.label === "Нүүр") {
+                    router.push("/home-page");
+                  }
+                  if (item.label === "Холбоо барих") {
+                    router.push("/home-page");
+                  }
+                  if (item.label === "Хоолны цэс") {
+                    router.push("/home-page");
+                  }
+                  if (item.label === "Үйлчилгээний нөхцөл") {
+                    router.push("/privacy-policy");
+                  }
+                  if (item.label === "Хүргэлтийн бүс") {
+                    router.push("/home-page");
+                  }
+                  if (item.label === "Нууцлалын бодлого") {
+                    router.push("/terms-of-service");
+                  }
+                }}
+              />
             ))}
           </Stack>
           <Stack direction="row" gap="18px">

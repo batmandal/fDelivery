@@ -10,7 +10,7 @@ export const signUp: RequestHandler = async (req, res) => {
     email,
     password,
   });
-  return res.json(user);
+  return res.json({ user, message: "signed up successfully" });
 };
 
 export const logIn: RequestHandler = async (req, res) => {
@@ -23,13 +23,9 @@ export const logIn: RequestHandler = async (req, res) => {
 
   if (!user) {
     return res.status(401).json({
-      message: "iim hereglegch algo",
+      message: "email esvel nuuts ug buruu",
     });
   }
-
-  // if (user.password !== password) {
-  //   return res.status(401).json({ message: "wrong password" });
-  // }
 
   const token = jwt.sign({ email }, "secret");
   return res.json({ token, message: "logged In successfully" });
