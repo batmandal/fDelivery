@@ -87,7 +87,9 @@ export function Header() {
             <Choice
               name="Хэрэглэгч"
               icon={<PersonOutlineOutlined />}
-              onClick={() => {}}
+              onClick={() => {
+                router.push("/user");
+              }}
             />
           ) : (
             <Choice

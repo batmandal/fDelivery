@@ -43,13 +43,13 @@ export function Footer() {
                     router.push("/home-page");
                   }
                   if (item.label === "Үйлчилгээний нөхцөл") {
-                    router.push("/privacy-policy");
+                    router.push("/terms-of-service");
                   }
                   if (item.label === "Хүргэлтийн бүс") {
                     router.push("/home-page");
                   }
                   if (item.label === "Нууцлалын бодлого") {
-                    router.push("/terms-of-service");
+                    router.push("/privacy-policy");
                   }
                 }}
               />

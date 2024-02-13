@@ -33,7 +33,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { token } = data;
 
       localStorage.setItem("token", token);
-      console.log(data.message);
+      // console.log(data.message);
+      toast.success(data.message);
 
       setIsLogged(true);
     } catch (error) {
@@ -54,7 +55,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { token } = data;
       router.push("/");
       localStorage.setItem("token", token);
-      console.log(data.message);
+      // console.log(data.message);
       toast.success(data.message);
     } catch (error) {
       console.log("login error");
