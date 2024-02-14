@@ -1,9 +1,9 @@
 import { Stack, Typography } from "@mui/material";
-import { Food } from "./Foods";
+import { FoodType } from "./Foods";
 
 type FoodProps = {
-  onClick: (food: Food) => void;
-} & Food;
+  onClick: (food: FoodType) => void;
+} & FoodType;
 
 export function Food(props: FoodProps) {
   const { onClick, ...food } = props;

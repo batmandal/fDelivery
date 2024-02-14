@@ -40,7 +40,7 @@ export function Footer() {
                     router.push("/home-page");
                   }
                   if (item.label === "Хоолны цэс") {
-                    router.push("/home-page");
+                    router.push("/menu-page");
                   }
                   if (item.label === "Үйлчилгээний нөхцөл") {
                     router.push("/terms-of-service");

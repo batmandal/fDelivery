@@ -5,7 +5,7 @@ import { Time } from "@/assets/svg/Time";
 import { FastDelivery } from "@/components/FastDelivery";
 
 import { Foods } from "@/components/Foods";
-import { Stack, Grid, Container, ContainerProps } from "@mui/material";
+import { Stack, Grid, Container } from "@mui/material";
 
 const fastDeliveries = [
   {

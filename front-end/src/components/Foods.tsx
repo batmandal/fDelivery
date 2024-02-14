@@ -16,7 +16,7 @@ type FoodsProps = {
   type?: string;
 };
 
-export type Food = {
+export type FoodType = {
   _id: string;
   name: string;
   price: string;
@@ -27,9 +27,9 @@ export type Food = {
 };
 
 export function Foods(props: FoodsProps) {
-  const [selectedFood, setSelectedFood] = useState<Food | null>(null);
+  const [selectedFood, setSelectedFood] = useState<FoodType | null>(null);
 
-  const { allFood, loading, error, refetch } = useFetch<Food[]>(
+  const { allFood, loading, error, refetch } = useFetch<FoodType[]>(
     "http://localhost:3008/foods"
   );
   // console.log(allFood);
@@ -50,7 +50,7 @@ export function Foods(props: FoodsProps) {
     }
   };
 
-  const handleOpen = (food: Food) => {
+  const handleOpen = (food: FoodType) => {
     setSelectedFood(food);
   };
 
