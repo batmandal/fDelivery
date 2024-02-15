@@ -3,11 +3,10 @@
 import { Food } from "@/components/Food";
 import { FoodType } from "@/components/Foods";
 import { useFetch } from "@/hooks/useFetch";
-import { Container, Grid, Stack } from "@mui/material";
+import { Container, Drawer, Grid, Stack } from "@mui/material";
 import { useState } from "react";
-import { string } from "yup";
 
-const menues = [
+const tabs = [
   { text: "Breakfast" },
   { text: "Soup" },
   { text: "Dessert" },
@@ -17,6 +16,8 @@ const menues = [
 export default function MenuPage() {
   const { allFood } = useFetch<FoodType[]>("http://localhost:3008/foods");
   const [menu, setMenu] = useState<string>("Breakfast");
+  const [activeTab, setActiveTab] = useState<any>([0]);
+  console.log(activeTab);
 
   const typeTranslate = () => {
     if (menu === "Breakfast") {
@@ -36,7 +37,7 @@ export default function MenuPage() {
   return (
     <Container maxWidth="lg">
       <Stack direction="row" justifyContent="space-between" py={4}>
-        {menues.map((item) => {
+        {tabs.map((item) => {
           return (
             <Stack
               borderRadius="8px"
@@ -47,8 +48,10 @@ export default function MenuPage() {
               width="23%"
               alignItems="center"
               sx={{ cursor: "pointer" }}
+              bgcolor={`${activeTab === item ? "#18BA51" : null}`}
+              color={`${activeTab === item ? "#fff" : null}`}
               onClick={() => {
-                setMenu(item.text);
+                setMenu(item.text), setActiveTab(item);
               }}
             >
               {item.text}
