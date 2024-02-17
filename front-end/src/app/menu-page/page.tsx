@@ -16,8 +16,8 @@ const tabs = [
 export default function MenuPage() {
   const { allFood } = useFetch<FoodType[]>("http://localhost:3008/foods");
   const [menu, setMenu] = useState<string>("Breakfast");
-  const [activeTab, setActiveTab] = useState<any>([0]);
-  console.log(activeTab);
+  const [activeTab, setActiveTab] = useState<any>(tabs[0]);
+  // console.log(activeTab);
 
   const typeTranslate = () => {
     if (menu === "Breakfast") {

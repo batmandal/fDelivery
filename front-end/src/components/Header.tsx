@@ -10,18 +10,34 @@ import {
 import { Pinecone } from "@/assets/svg/Pinecone";
 import { useRouter } from "next/navigation";
 
-import * as React from "react";
 import Modal from "@mui/material/Modal";
 import { LogInModal } from "./LogIn";
 import { useAuth } from "./AuthProvider";
+import { useState } from "react";
+import { Basket } from "./Drawer";
+
+const text = ["НҮҮР", "ХООЛНЫ ЦЭС", "ХҮРГЭЛТИЙН БҮС"];
 
 export function Header() {
   const router = useRouter();
   const { isLogged } = useAuth();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [textClick, setTextClick] = useState<string>();
+
+  const action = () => {
+    if (textClick === "НҮҮР") {
+      return router.push("/home-page");
+    }
+    if (textClick === "ХООЛНЫ ЦЭС") {
+      return router.push("/menu-page");
+    }
+    if (textClick === "ХҮРГЭЛТИЙН БҮС") {
+      return router.push("/delivery-area");
+    }
+  };
 
   return (
     <Stack
@@ -42,47 +58,27 @@ export function Header() {
         <Stack direction="row" style={{ alignItems: "center" }}>
           <Pinecone />
           <Stack direction="row" gap={1}>
-            <Typography
-              fontWeight={700}
-              fontSize="14px"
-              padding="12px 16px"
-              onClick={() => {
-                router.push("home-page");
-              }}
-              sx={{ cursor: "pointer" }}
-            >
-              нүүр
-            </Typography>
-            <Typography
-              fontWeight={700}
-              fontSize="14px"
-              padding="12px 16px"
-              onClick={() => {
-                router.push("menu-page");
-              }}
-              sx={{
-                cursor: "pointer",
-              }}
-            >
-              хоолны цэс
-            </Typography>
-            <Typography
-              fontWeight={700}
-              fontSize="14px"
-              padding="12px 16px"
-              sx={{ cursor: "pointer" }}
-            >
-              хүргэлтийн бүс
-            </Typography>
+            {text.map((a, i) => {
+              return (
+                <Typography
+                  key={i}
+                  fontWeight={700}
+                  fontSize="14px"
+                  padding="12px 16px"
+                  onClick={() => {
+                    setTextClick(a), action();
+                  }}
+                  sx={{ cursor: "pointer" }}
+                >
+                  {a}
+                </Typography>
+              );
+            })}
           </Stack>
         </Stack>
         <Stack direction="row" gap={1} style={{ alignItems: "center" }}>
           <CustomInput placeholder="хайх" size="small" />
-          <Choice
-            name="сагс"
-            icon={<ShoppingBasketOutlined />}
-            onClick={() => {}}
-          />
+          <Basket />
           {isLogged === true ? (
             <Choice
               name="Хэрэглэгч"

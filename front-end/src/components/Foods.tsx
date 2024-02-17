@@ -10,8 +10,6 @@ import { ModalFood } from "./ModalFood";
 import { useFetch } from "@/hooks/useFetch";
 import { useState } from "react";
 
-// const allFood = [{ foodName: "bla", cost: "6700", img: "steak.jpeg" }];
-
 type FoodsProps = {
   type?: string;
 };
@@ -32,7 +30,6 @@ export function Foods(props: FoodsProps) {
   const { allFood, loading, error, refetch } = useFetch<FoodType[]>(
     "http://localhost:3008/foods"
   );
-  // console.log(allFood);
 
   const { type } = props;
   const typeTranslate = () => {

@@ -1,4 +1,5 @@
 import { Star } from "@/assets/svg/Star";
+import { Basket } from "@/components/Drawer";
 import { Stack, Typography } from "@mui/material";
 
 export default function DeliveryArea() {
