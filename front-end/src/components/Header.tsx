@@ -3,14 +3,10 @@
 import { Stack, Typography, Container } from "@mui/material";
 import { CustomInput } from "@/components/Input";
 import { Choice } from "@/components";
-import {
-  ShoppingBasketOutlined,
-  PersonOutlineOutlined,
-} from "@mui/icons-material";
+import { PersonOutlineOutlined } from "@mui/icons-material";
 import { Pinecone } from "@/assets/svg/Pinecone";
 import { useRouter } from "next/navigation";
 
-import Modal from "@mui/material/Modal";
 import { LogInModal } from "./LogIn";
 import { useAuth } from "./AuthProvider";
 import { useState } from "react";
@@ -22,10 +18,7 @@ export function Header() {
   const router = useRouter();
   const { isLogged } = useAuth();
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [textClick, setTextClick] = useState<string>();
+  const [textClick, setTextClick] = useState<string>("НҮҮР");
 
   const action = () => {
     if (textClick === "НҮҮР") {
@@ -77,7 +70,7 @@ export function Header() {
           </Stack>
         </Stack>
         <Stack direction="row" gap={1} style={{ alignItems: "center" }}>
-          <CustomInput placeholder="хайх" size="small" />
+          <CustomInput placeholder="хайх" size="small" type="search" />
           <Basket />
           {isLogged === true ? (
             <Choice
@@ -88,23 +81,10 @@ export function Header() {
               }}
             />
           ) : (
-            <Choice
-              name="нэвтрэх"
-              icon={<PersonOutlineOutlined />}
-              onClick={handleOpen}
-            />
+            <LogInModal />
           )}
         </Stack>
       </Container>
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          sx={{ display: "grid", placeContent: "center" }}
-        >
-          <LogInModal />
-        </Modal>
-      </div>
     </Stack>
   );
 }

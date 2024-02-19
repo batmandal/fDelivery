@@ -37,7 +37,7 @@ export const CustomInput = (props: TextFieldProps & TxProps) => {
       <TextField
         {...rest}
         sx={{
-          background: "#ECEDF0",
+          background: `${type === "search" ? "white" : "#ECEDF0"}`,
         }}
         type={type === "password" && showPassword ? "text" : type}
         inputProps={{

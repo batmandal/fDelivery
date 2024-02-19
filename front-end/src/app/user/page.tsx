@@ -1,3 +1,4 @@
+"use client";
 import { Stack, Typography } from "@mui/material";
 
 import { Action, UserInput } from "@/components/UserInput";
@@ -9,6 +10,8 @@ import {
   PersonOutlined,
   PhoneOutlined,
 } from "@mui/icons-material";
+import { useAuth } from "@/components/AuthProvider";
+import { useRouter } from "next/navigation";
 
 const userInformation = [
   { label: "Таны нэр", icon: <PersonOutlined />, text: "УгтахБаяр" },
@@ -21,6 +24,8 @@ const userInformation = [
 ];
 
 export default function User() {
+  const { logout } = useAuth();
+  const router = useRouter();
   return (
     <Stack gap={5} alignItems="center" margin={8}>
       <Stack position="relative">
@@ -52,7 +57,13 @@ export default function User() {
           );
         })}
         <Action title="Захиалгын түүх" icon2={<HistoryOutlined />} />
-        <Action title="Гарах" icon2={<LogoutOutlined />} />
+        <Action
+          title="Гарах"
+          icon2={<LogoutOutlined />}
+          onClick={() => {
+            logout(), router.push("/home-page");
+          }}
+        />
       </Stack>
     </Stack>
   );

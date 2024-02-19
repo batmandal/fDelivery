@@ -50,9 +50,10 @@ export function UserInput(props: UserType) {
 type PropsAction = {
   title: string;
   icon2: ReactNode;
+  onClick?: any;
 };
 export function Action(props: PropsAction) {
-  const { title, icon2 } = props;
+  const { title, icon2, onClick } = props;
   return (
     <Stack
       direction="row"
@@ -61,6 +62,8 @@ export function Action(props: PropsAction) {
       px="20px"
       alignItems="center"
       gap={1}
+      onClick={onClick}
+      sx={{ cursor: "pointer" }}
     >
       <Stack
         width="48px"

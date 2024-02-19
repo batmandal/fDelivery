@@ -14,7 +14,7 @@ type AuthContextType = {
   isLogged: boolean;
   signup: (email: String, password: String, name: String) => void;
   login: (email: String, password: String) => void;
-  //   logout: () => void;
+  logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { token } = data;
 
       localStorage.setItem("token", token);
-      // console.log(data.message);
+      console.log(data.message, token);
       toast.success(data.message);
 
       setIsLogged(true);
@@ -42,6 +42,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         toast.warning(error.response?.data.message ?? error.message);
       }
     }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+
+    setIsLogged(false);
   };
 
   const signup = async (email: String, password: String, name: String) => {
@@ -69,7 +75,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         // user: {},
         signup,
         login,
-        // logout: () => {},
+        logout,
       }}
     >
       {children}
