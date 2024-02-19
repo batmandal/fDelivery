@@ -3,12 +3,14 @@ import { Stack, Typography } from "@mui/material";
 import { CustomButton, CustomInput } from ".";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { ForgotPassProps } from "./ForgotPass1";
 
 const validationSchema = yup.object({
   password: yup.string().required(),
 });
 
-export function ForgotPass2() {
+export function ForgotPass2(props: ForgotPassProps) {
+  const { setStep } = props;
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -19,7 +21,7 @@ export function ForgotPass2() {
     },
   });
   return (
-    <Stack py={8} display="grid" style={{ placeContent: "center" }}>
+    <Stack py={8}>
       <Stack
         gap={6}
         padding={4}

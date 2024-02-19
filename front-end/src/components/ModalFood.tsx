@@ -4,7 +4,6 @@ import { Stack, Typography } from "@mui/material";
 
 import { CustomButton } from "@/components";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import Image from "next/image";
 import { Food } from "./Foods";
 
 type ModalProps = {

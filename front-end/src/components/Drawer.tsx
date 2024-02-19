@@ -4,6 +4,7 @@ import { Container, Drawer, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { Choice, CustomButton } from ".";
 import { ArrowBackIos, ShoppingBasketOutlined } from "@mui/icons-material";
+import { Card } from "./Card";
 
 export const Basket = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -39,7 +40,9 @@ export const Basket = () => {
               Таны сагс
             </Typography>
           </Stack>
-          <Stack></Stack>
+          <Stack>
+            <Card />
+          </Stack>
         </Container>
         <Stack
           direction="row"

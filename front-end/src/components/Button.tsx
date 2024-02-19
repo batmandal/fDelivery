@@ -23,7 +23,6 @@ export const CustomButton = (props: CustomButtonProps) => {
         color: "primary.contrastText",
       }}
       sx={sx}
-      // size={size}
       onClick={onClick}
     >
       {label}

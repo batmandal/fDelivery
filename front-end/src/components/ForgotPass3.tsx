@@ -2,11 +2,11 @@
 import { Stack, Typography } from "@mui/material";
 import { CustomButton, CustomInput } from ".";
 import { useState } from "react";
+import { ForgotPassProps } from "./ForgotPass1";
 
-export function ForgotPass3() {
-  const [emailValue, setEmailValue] = useState();
+export function ForgotPass3(props: ForgotPassProps) {
   return (
-    <Stack py={8} display="grid" style={{ placeContent: "center" }}>
+    <Stack py={8}>
       <Stack
         gap={6}
         padding={4}
@@ -22,7 +22,7 @@ export function ForgotPass3() {
           <Stack gap={2}>
             <CustomInput
               label="Нууц үг "
-              value={emailValue}
+              // value={emailValue}
               placeholder="Шинэ нууц үг"
               // onChange={handleChange}
               type="password"
@@ -31,7 +31,7 @@ export function ForgotPass3() {
           <Stack gap={2}>
             <CustomInput
               label="Шинэ нууц үг давтах  "
-              value={emailValue}
+              // value={emailValue}
               placeholder="Шинэ нууц үг давтах "
               // onChange={handleChange}
               type="password"
@@ -43,7 +43,7 @@ export function ForgotPass3() {
           <CustomButton
             variant="contained"
             label="Үргэлжлүүлэх"
-            disabled={!emailValue}
+            // disabled={!emailValue}
             sx={{
               width: "384px",
               height: "48px",

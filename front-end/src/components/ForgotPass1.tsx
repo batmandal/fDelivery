@@ -4,13 +4,20 @@ import { Stack, Typography } from "@mui/material";
 import { CustomButton, CustomInput } from ".";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { log } from "console";
+import { Dispatch, SetStateAction } from "react";
 
 const validationSchema = yup.object({
   email: yup.string().email().required(),
 });
 
-export function ForgotPass1() {
+export type ForgotPassProps = {
+  setStep: Dispatch<SetStateAction<number>>;
+  email: string;
+  setEmail?: Dispatch<SetStateAction<string>>;
+};
+
+export function ForgotPass1(props: ForgotPassProps) {
+  const { setStep } = props;
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -20,8 +27,9 @@ export function ForgotPass1() {
       console.log(values.email);
     },
   });
+
   return (
-    <Stack py={8} display="grid" style={{ placeContent: "center" }}>
+    <Stack py={8}>
       <Stack
         gap={6}
         padding={4}
