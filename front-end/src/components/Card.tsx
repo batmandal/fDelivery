@@ -28,7 +28,7 @@ export function Card() {
         <Typography color="#767676" fontWeight={400} fontSize="16px">
           Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр{" "}
         </Typography>
-        <Stack direction="row" gap={1}>
+        <Stack direction="row" justifyContent="space-between">
           <CustomButton label="-" variant="contained" />
           <Typography
             fontWeight={500}
