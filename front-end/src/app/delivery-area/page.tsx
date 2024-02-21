@@ -1,11 +1,13 @@
 import { Star } from "@/assets/svg/Star";
+import { AddCategory } from "@/components/AddCategory";
+import { CreateFood } from "@/components/CreateFood";
 import { Basket } from "@/components/Drawer";
 import { Stack, Typography } from "@mui/material";
 
 export default function DeliveryArea() {
   return (
     <>
-      <Stack></Stack>
+      {/* <Stack></Stack>
       <Stack>
         <Star /> Хүргэлтийн бүс дэх хаягууд
       </Stack>
@@ -21,7 +23,9 @@ export default function DeliveryArea() {
           </Typography>
           <Stack></Stack>
         </Stack>
-      </Stack>
+      </Stack> */}
+      <CreateFood />
+      <AddCategory />
     </>
   );
 }
