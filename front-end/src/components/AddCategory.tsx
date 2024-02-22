@@ -1,6 +1,6 @@
 "use client";
 import { Add, Close } from "@mui/icons-material";
-import { Button, Modal, Stack, Typography } from "@mui/material";
+import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 export function AddCategory() {
@@ -14,7 +14,7 @@ export function AddCategory() {
         }}
         direction="row"
         gap={1}
-        sx={{ color: "#5E6166" }}
+        sx={{ color: "#5E6166", cursor: "pointer" }}
         border="solid 1px #D6D8DB"
         width="fit-content"
         borderRadius={1}
@@ -48,7 +48,16 @@ export function AddCategory() {
               Create new category
             </Typography>
           </Stack>
-          <Stack></Stack>
+          <Stack padding={3} gap={1}>
+            <Typography fontWeight={500} fontSize="14px">
+              Category name
+            </Typography>
+            <TextField
+              type="text"
+              placeholder="Category name"
+              sx={{ background: "#F4F4F4" }}
+            ></TextField>
+          </Stack>
           <Stack
             direction="row"
             borderTop="solid 1px #E0E0E0"
