@@ -2,10 +2,31 @@
 import { Add, Close } from "@mui/icons-material";
 import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { useData } from "./providers/DataProvider";
+import * as yup from "yup";
+import { useFormik } from "formik";
+
+const validationSchema = yup.object({
+  categoryName: yup.string().required(),
+});
 
 export function AddCategory() {
+  const { categoryPost } = useData();
+
   const [open, setModalOpen] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      categoryName: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (value) => {
+      categoryPost(value.categoryName);
+    },
+  });
+
   const handleClose = () => [setModalOpen(false)];
+
   return (
     <>
       <Stack
@@ -16,8 +37,8 @@ export function AddCategory() {
         gap={1}
         sx={{ color: "#5E6166", cursor: "pointer" }}
         border="solid 1px #D6D8DB"
-        width="fit-content"
-        borderRadius={1}
+        width="100%"
+        borderRadius={2}
         py={1}
         px={2}
       >
@@ -54,8 +75,19 @@ export function AddCategory() {
             </Typography>
             <TextField
               type="text"
+              name="categoryName"
+              value={formik.values.categoryName}
               placeholder="Category name"
               sx={{ background: "#F4F4F4" }}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.categoryName &&
+                Boolean(formik.errors.categoryName)
+              }
+              helperText={
+                formik.touched.categoryName && formik.errors.categoryName
+              }
             ></TextField>
           </Stack>
           <Stack
@@ -73,6 +105,9 @@ export function AddCategory() {
             <Button
               variant="contained"
               sx={{ background: "#393939", color: "white" }}
+              onClick={() => {
+                formik.handleSubmit(), handleClose();
+              }}
             >
               Continue
             </Button>

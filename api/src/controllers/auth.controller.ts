@@ -28,5 +28,5 @@ export const logIn: RequestHandler = async (req, res) => {
   }
 
   const token = jwt.sign({ email }, "secret");
-  return res.json({ token, message: "logged In successfully" });
+  return res.json({ token, user, message: "logged In successfully" });
 };

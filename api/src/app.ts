@@ -7,6 +7,7 @@ import { authMiddleware } from "./middlewares";
 import userRouter from "./routers/users.router";
 import foodRouter from "./routers/food.router";
 import emailRouter from "./routers/email.router";
+import categoryRouter from "./routers/category.router";
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use("/users", userRouter);
 app.use("/foods", foodRouter);
 
 app.use("/email", emailRouter);
+
+app.use("/categories", categoryRouter);
 
 app.use(authMiddleware);
 

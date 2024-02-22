@@ -14,6 +14,7 @@ export function UserInput(props: UserType) {
     <Stack
       width="392px"
       bgcolor="#F6F6F6"
+      // bgcolor="red"
       direction="row"
       justifyContent="space-between"
       py={1}

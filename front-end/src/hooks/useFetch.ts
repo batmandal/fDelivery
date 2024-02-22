@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useFetch = <T>(url: string) => {
-  const [allFood, setAllFood] = useState<T>([] as T);
+  const [datas, setDatas] = useState<T>([] as T);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -9,7 +9,7 @@ export const useFetch = <T>(url: string) => {
     try {
       const res = await fetch(url);
       const json = (await res.json()) as T;
-      setAllFood(json);
+      setDatas(json);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -23,5 +23,5 @@ export const useFetch = <T>(url: string) => {
   useEffect(() => {
     fetchData();
   }, [url]);
-  return { allFood, loading, error, refetch };
+  return { datas, loading, error, refetch };
 };

@@ -1,8 +1,13 @@
 import { api } from "@/common/axios";
 import { AxiosError } from "axios";
-import { log } from "console";
 import { useRouter } from "next/navigation";
-import { PropsWithChildren, createContext, useContext, useState } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 
 type User = {
@@ -23,6 +28,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  }, []);
+
   const login = async (email: String, password: String) => {
     try {
       const { data } = await api.post("/logIn", {
@@ -30,13 +43,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         password,
       });
 
-      const { token } = data;
+      const { token, user } = data;
 
       localStorage.setItem("token", token);
-      console.log(data.message, token);
+      console.log(data.message, user, token);
       toast.success(data.message);
 
-      setIsLogged(true);
+      // setIsLogged(true);
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.warning(error.response?.data.message ?? error.message);

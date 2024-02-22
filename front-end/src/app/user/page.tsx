@@ -1,5 +1,5 @@
 "use client";
-import { Stack, Typography } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 
 import { Action, UserInput } from "@/components/UserInput";
 import {
@@ -10,8 +10,9 @@ import {
   PersonOutlined,
   PhoneOutlined,
 } from "@mui/icons-material";
-import { useAuth } from "@/components/AuthProvider";
+import { useAuth } from "@/components/providers/AuthProvider";
 import { useRouter } from "next/navigation";
+import { useData } from "@/components/providers/DataProvider";
 
 const userInformation = [
   { label: "Таны нэр", icon: <PersonOutlined />, text: "УгтахБаяр" },
@@ -25,7 +26,10 @@ const userInformation = [
 
 export default function User() {
   const { logout } = useAuth();
+  // const { datas, loading, error } = useData<UserType[]>("http:localhost:3008");
+
   const router = useRouter();
+
   return (
     <Stack gap={5} alignItems="center" margin={8}>
       <Stack position="relative">
@@ -39,10 +43,17 @@ export default function User() {
           width="34px"
           height="34px"
           display="grid"
-          sx={{ placeContent: "center", background: "white" }}
+          sx={{
+            placeContent: "center",
+            background: "white",
+            cursor: "pointer",
+          }}
           position="absolute"
           right={0}
           bottom={0}
+          onClick={() => {
+            return <TextField type="file"></TextField>;
+          }}
         >
           <CreateOutlined />
         </Stack>

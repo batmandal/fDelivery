@@ -9,6 +9,7 @@ import Modal from "@mui/material/Modal";
 import { ModalFood } from "./ModalFood";
 import { useFetch } from "@/hooks/useFetch";
 import { useState } from "react";
+import { FoodsModal } from "./FoodsModal";
 
 type FoodsProps = {
   type?: string;
@@ -27,7 +28,7 @@ export type FoodType = {
 export function Foods(props: FoodsProps) {
   const [selectedFood, setSelectedFood] = useState<FoodType | null>(null);
 
-  const { allFood, loading, error, refetch } = useFetch<FoodType[]>(
+  const { datas, loading, error, refetch } = useFetch<FoodType[]>(
     "http://localhost:3008/foods"
   );
 
@@ -81,7 +82,7 @@ export function Foods(props: FoodsProps) {
       </Stack>
 
       <Grid container spacing={2}>
-        {allFood
+        {datas
           .filter((food) => food.type === typeTranslate())
           .map((item) => {
             return (
@@ -91,19 +92,12 @@ export function Foods(props: FoodsProps) {
             );
           })}
       </Grid>
-      <div>
-        <Modal
-          open={Boolean(selectedFood)}
-          onClose={handleClose}
-          sx={{ display: "grid", placeContent: "center" }}
-        >
-          <>
-            {selectedFood && (
-              <ModalFood onClick={handleClose} {...selectedFood} />
-            )}
-          </>
-        </Modal>
-      </div>
+
+      <FoodsModal
+        open={Boolean(selectedFood)}
+        handleClose={() => setSelectedFood(null)}
+        food={selectedFood}
+      />
     </Stack>
   );
 }

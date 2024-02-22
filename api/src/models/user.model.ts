@@ -14,6 +14,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: Number,
+
+    required: false,
+  },
 });
 
 export const UserModel = model("user", userSchema);

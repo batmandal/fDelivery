@@ -8,7 +8,7 @@ import { Pinecone } from "@/assets/svg/Pinecone";
 import { useRouter } from "next/navigation";
 
 import { LogInModal } from "./LogIn";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "./providers/AuthProvider";
 import { useState } from "react";
 import { Basket } from "./Drawer";
 

@@ -3,7 +3,7 @@ import { Choice, CustomButton, CustomInput } from ".";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "./providers/AuthProvider";
 import { PersonOutlineOutlined } from "@mui/icons-material";
 import { useState } from "react";
 

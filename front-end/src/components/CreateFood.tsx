@@ -33,12 +33,13 @@ export function CreateFood() {
         }}
         direction="row"
         gap={1}
-        sx={{ color: "#5E6166" }}
+        sx={{ color: "white" }}
         border="solid 1px #D6D8DB"
         width="fit-content"
-        borderRadius={1}
+        borderRadius={2}
         py={1}
         px={2}
+        bgcolor="#18BA51"
       >
         <Add /> {"Add new food"}
       </Stack>
@@ -124,7 +125,6 @@ export function Inputs(props: inputsType & TextFieldProps) {
         <Toggle />
         <Typography>{label}</Typography>
       </Stack>
-
       <Stack width="100%">
         <Stack direction="row" gap={1} alignItems="center">
           <Stack alignItems="center" gap={1} width="100%" bgcolor="#F4F4F4">
@@ -145,7 +145,6 @@ export function Inputs(props: inputsType & TextFieldProps) {
               onChange={(event) => setFoodImage(event.target.value)}
             ></TextField>
           </Stack>
-
           <img
             src={foodImage}
             alt=""

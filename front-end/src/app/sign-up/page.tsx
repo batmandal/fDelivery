@@ -2,7 +2,7 @@
 
 import { Cloud } from "@/assets/svg/Cloud";
 import { CustomInput, CustomButton } from "@/components";
-import { useAuth } from "@/components/AuthProvider";
+import { useAuth } from "@/components/providers/AuthProvider";
 
 import { Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";

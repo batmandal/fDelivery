@@ -4,11 +4,11 @@ import { Stack, Typography } from "@mui/material";
 
 import { CustomButton } from "@/components";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { Food } from "./Foods";
+import { FoodType } from "./Foods";
 
 type ModalProps = {
   onClick: () => void;
-} & Food;
+} & FoodType;
 
 export function ModalFood(props: ModalProps) {
   const { name, price, ingredient, image, onClick } = props;

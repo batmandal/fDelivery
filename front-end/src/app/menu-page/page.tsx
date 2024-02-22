@@ -2,6 +2,7 @@
 
 import { Food } from "@/components/Food";
 import { FoodType } from "@/components/Foods";
+import { FoodsModal } from "@/components/FoodsModal";
 import { useFetch } from "@/hooks/useFetch";
 import { Container, Drawer, Grid, Stack } from "@mui/material";
 import { useState } from "react";
@@ -14,7 +15,8 @@ const tabs = [
 ];
 
 export default function MenuPage() {
-  const { allFood } = useFetch<FoodType[]>("http://localhost:3008/foods");
+  const [selectedFood, setSelectedFood] = useState<FoodType | null>(null);
+  const { datas } = useFetch<FoodType[]>("http://localhost:3008/foods");
   const [menu, setMenu] = useState<string>("Breakfast");
   const [activeTab, setActiveTab] = useState<any>(tabs[0]);
   // console.log(activeTab);
@@ -65,17 +67,27 @@ export default function MenuPage() {
           spacing={2}
           sx={{ marginBottom: "105px", marginTop: "54px" }}
         >
-          {allFood
+          {datas
             .filter((f) => f.type === typeTranslate())
             .map((item) => {
               return (
                 <Grid item lg={3} md={4} sm={6} xs={12}>
-                  <Food {...item} onClick={() => {}} />
+                  <Food
+                    {...item}
+                    onClick={() => {
+                      setSelectedFood(item);
+                    }}
+                  />
                 </Grid>
               );
             })}
         </Grid>
       </Stack>
+      <FoodsModal
+        open={Boolean(selectedFood)}
+        handleClose={() => setSelectedFood(null)}
+        food={selectedFood}
+      />
     </Container>
   );
 }
