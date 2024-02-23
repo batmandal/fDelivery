@@ -5,7 +5,6 @@ import { Action, UserInput } from "@/components/UserInput";
 import {
   CreateOutlined,
   ForwardToInboxOutlined,
-  HistoryOutlined,
   LogoutOutlined,
   PersonOutlined,
   PhoneOutlined,
@@ -13,18 +12,9 @@ import {
 import { useAuth } from "@/components/providers/AuthProvider";
 import { useRouter } from "next/navigation";
 
-const userInformation = [
-  { label: "Таны нэр", icon: <PersonOutlined />, text: "УгтахБаяр" },
-  { label: "Утасны дугаар", icon: <PhoneOutlined />, text: "88883345" },
-  {
-    label: "Имэйл хаяг",
-    icon: <ForwardToInboxOutlined />,
-    text: "Ugtakhbayr@gmail.com",
-  },
-];
-
 export default function User() {
-  const { logout, userData } = useAuth();
+  const { logout } = useAuth();
+  const { userData } = useAuth();
 
   const router = useRouter();
 
@@ -57,15 +47,25 @@ export default function User() {
         </Stack>
       </Stack>
       <Typography fontWeight={700} fontSize="28px">
-        haha
+        {userData?.name}
       </Typography>
       <Stack gap={2}>
-        {userInformation.map((item) => {
-          return (
-            <UserInput label={item.label} icon={item.icon} text={item.text} />
-          );
-        })}
-        <Action title="Захиалгын түүх" icon2={<HistoryOutlined />} />
+        <UserInput
+          label="Таны нэр"
+          icon={<PersonOutlined />}
+          text={userData?.name}
+        />
+        <UserInput
+          label="Утасны дугаар"
+          icon={<PhoneOutlined />}
+          text={userData?.password}
+        />
+        <UserInput
+          label="Имэйл хаяг"
+          icon={<PersonOutlined />}
+          text={userData?.email}
+        />
+        <Action title="Захиалгын түүх" icon2={<ForwardToInboxOutlined />} />
         <Action
           title="Гарах"
           icon2={<LogoutOutlined />}

@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 type UserType = {
   label: string;
   icon: ReactNode;
-  text: string;
+  text?: string;
 };
 
 export function UserInput(props: UserType) {

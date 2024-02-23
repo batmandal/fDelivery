@@ -2,7 +2,9 @@ import { api } from "@/common/axios";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import {
+  Dispatch,
   PropsWithChildren,
+  SetStateAction,
   createContext,
   useContext,
   useEffect,
@@ -10,7 +12,7 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 
-type User = {
+export type UserType = {
   email: string;
   _id: string;
   name: string;
@@ -19,19 +21,18 @@ type User = {
 
 type AuthContextType = {
   isLogged: boolean;
-  userData: object;
-  signup: (email: String, password: String, name: String) => void;
-  login: (email: String, password: String) => void;
+  signup: (email: String, password: String, name: String) => Promise<void>;
+  login: (email: String, password: String) => Promise<void>;
   logout: () => void;
+  userData: UserType | null;
+  setUserData?: Dispatch<SetStateAction<UserType | null>>;
 };
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [isLogged, setIsLogged] = useState(false);
-  const [userData, setUserData] = useState({});
-  console.log(userData, "user Data shuu");
-
+  const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [userData, setUserData] = useState<UserType | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -49,19 +50,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         password,
       });
 
-      const { token, user } = data;
+      const { token } = data;
 
       localStorage.setItem("token", token);
-      console.log(data.message, user, token);
-
-      setUserData(user);
-      useEffect(() => {
-        userData;
-      }, []);
 
       toast.success(data.message);
-
-      // setIsLogged(true);
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.warning(error.response?.data.message ?? error.message);
@@ -86,24 +79,30 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const { token } = data;
       router.push("/");
       localStorage.setItem("token", token);
-      // console.log(data.message);
       toast.success(data.message);
     } catch (error) {
       console.log("login error");
     }
   };
 
+  const getUser = async () => {
+    try {
+      const { data } = await api.get("/user", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      setUserData(data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
-    <AuthContext.Provider
-      value={{
-        isLogged,
-        userData,
-        // user: {},
-        signup,
-        login,
-        logout,
-      }}
-    >
+    <AuthContext.Provider value={{ isLogged, signup, login, logout, userData }}>
       {children}
     </AuthContext.Provider>
   );
