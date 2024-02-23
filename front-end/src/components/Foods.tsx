@@ -5,8 +5,6 @@ import { Star } from "@/assets/svg/Star";
 import { Food } from "@/components/Food";
 import { Grid, Stack, Typography } from "@mui/material";
 
-import Modal from "@mui/material/Modal";
-import { ModalFood } from "./ModalFood";
 import { useFetch } from "@/hooks/useFetch";
 import { useState } from "react";
 import { FoodsModal } from "./FoodsModal";

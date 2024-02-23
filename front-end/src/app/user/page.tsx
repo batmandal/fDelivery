@@ -12,7 +12,6 @@ import {
 } from "@mui/icons-material";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { useRouter } from "next/navigation";
-import { useData } from "@/components/providers/DataProvider";
 
 const userInformation = [
   { label: "Таны нэр", icon: <PersonOutlined />, text: "УгтахБаяр" },
@@ -25,8 +24,7 @@ const userInformation = [
 ];
 
 export default function User() {
-  const { logout } = useAuth();
-  // const { datas, loading, error } = useData<UserType[]>("http:localhost:3008");
+  const { logout, userData } = useAuth();
 
   const router = useRouter();
 
@@ -59,7 +57,7 @@ export default function User() {
         </Stack>
       </Stack>
       <Typography fontWeight={700} fontSize="28px">
-        УгтахБаяр
+        haha
       </Typography>
       <Stack gap={2}>
         {userInformation.map((item) => {

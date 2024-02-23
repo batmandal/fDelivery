@@ -13,10 +13,13 @@ import { toast } from "react-toastify";
 type User = {
   email: string;
   _id: string;
+  name: string;
+  password: string;
 };
 
 type AuthContextType = {
   isLogged: boolean;
+  userData: object;
   signup: (email: String, password: String, name: String) => void;
   login: (email: String, password: String) => void;
   logout: () => void;
@@ -26,6 +29,9 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState(false);
+  const [userData, setUserData] = useState({});
+  console.log(userData, "user Data shuu");
+
   const router = useRouter();
 
   useEffect(() => {
@@ -47,6 +53,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
       localStorage.setItem("token", token);
       console.log(data.message, user, token);
+
+      setUserData(user);
+      useEffect(() => {
+        userData;
+      }, []);
+
       toast.success(data.message);
 
       // setIsLogged(true);
@@ -85,6 +97,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     <AuthContext.Provider
       value={{
         isLogged,
+        userData,
         // user: {},
         signup,
         login,
