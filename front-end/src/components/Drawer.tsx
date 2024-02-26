@@ -10,7 +10,6 @@ import { useData } from "./providers/DataProvider";
 export const Basket = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { basketFood } = useData();
-  console.log(basketFood);
 
   return (
     <>

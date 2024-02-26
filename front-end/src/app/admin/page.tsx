@@ -33,7 +33,6 @@ export default function Admin() {
   } = useFetch<FoodType[]>("http://localhost:3008/foods");
 
   const [active, setActive] = useState("hi");
-  console.log(active, "blabla");
 
   return (
     <Container maxWidth="lg" sx={{ display: "flex", height: "fit-content" }}>

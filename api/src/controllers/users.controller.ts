@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { UserModel } from "../models";
-// import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const getAllUsers: RequestHandler = async (req, res) => {
   const users = await UserModel.find({});
@@ -8,12 +8,19 @@ export const getAllUsers: RequestHandler = async (req, res) => {
   res.json(users);
 };
 
-export const getUser: RequestHandler<{ payload: {} }> = async (req, res) => {
-  // const { email } = req.params.payload as JwtPayload;
+export const getUser: RequestHandler = async (req, res) => {
+  const { authorization } = req.headers;
 
-  // const { email } = authorization;
+  if (!authorization) {
+    return res.status(401).json({
+      message: "not found authorization",
+    });
+  }
 
-  const user = await UserModel.findOne();
+  const payload = jwt.verify(authorization, "secret") as JwtPayload;
+  const { email } = payload;
+
+  const user = await UserModel.findOne({ email: email });
 
   if (!user) {
     return res.status(401).json({

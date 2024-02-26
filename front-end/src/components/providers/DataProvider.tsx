@@ -16,6 +16,8 @@ type DataContextType = {
   basketFood: any;
   setBasketFood: any;
   addFoodToCart: (params: CartFood) => void;
+  imageUrl: any;
+  setImageUrl: any;
 };
 
 export type CartFood = {
@@ -27,6 +29,8 @@ const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
   const [basketFood, setBasketFood] = useState<CartFood[]>([]);
+
+  const [imageUrl, setImageUrl] = useState<null | any>("/default.webp");
 
   const categoryPost = async (categoryName: String) => {
     try {
@@ -48,7 +52,14 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <DataContext.Provider
-      value={{ categoryPost, basketFood, setBasketFood, addFoodToCart }}
+      value={{
+        categoryPost,
+        basketFood,
+        setBasketFood,
+        addFoodToCart,
+        imageUrl,
+        setImageUrl,
+      }}
     >
       {children}
     </DataContext.Provider>

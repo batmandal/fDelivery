@@ -19,15 +19,14 @@ export default function SignUp() {
   const { signup } = useAuth();
   const formik = useFormik({
     initialValues: {
+      name: "",
       email: "",
       password: "",
-      name: "",
       address: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // console.log(values.email);
-      signup(values.email, values.name, values.password);
+      signup(values.name, values.email, values.password);
     },
   });
 

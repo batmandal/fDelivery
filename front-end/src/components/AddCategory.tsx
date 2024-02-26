@@ -13,7 +13,7 @@ const validationSchema = yup.object({
 export function AddCategory() {
   const { categoryPost } = useData();
 
-  const [open, setModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -25,13 +25,13 @@ export function AddCategory() {
     },
   });
 
-  const handleClose = () => [setModalOpen(false)];
+  const handleClose = () => [setOpen(false)];
 
   return (
     <>
       <Stack
         onClick={() => {
-          setModalOpen(true);
+          setOpen(true);
         }}
         direction="row"
         gap={1}

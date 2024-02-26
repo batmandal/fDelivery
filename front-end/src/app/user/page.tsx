@@ -3,7 +3,6 @@ import { Stack, TextField, Typography } from "@mui/material";
 
 import { Action, UserInput } from "@/components/UserInput";
 import {
-  CreateOutlined,
   ForwardToInboxOutlined,
   LogoutOutlined,
   PersonOutlined,
@@ -11,10 +10,15 @@ import {
 } from "@mui/icons-material";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { useRouter } from "next/navigation";
+import Page from "@/components/upload/UploadImage";
+import { useData } from "@/components/providers/DataProvider";
+import Image from "next/image";
 
 export default function User() {
-  const { logout } = useAuth();
-  const { userData } = useAuth();
+  const { logout, userData } = useAuth();
+
+  const { imageUrl } = useData();
+  console.log(imageUrl, "image url");
 
   const router = useRouter();
 
@@ -22,7 +26,7 @@ export default function User() {
     <Stack gap={5} alignItems="center" margin={8}>
       <Stack position="relative">
         <Stack width="120px" borderRadius="50%" overflow="hidden">
-          <img src="Avatar.jpg" />
+          <img src={`${imageUrl}`} />
         </Stack>
         <Stack
           color="#18BA51"
@@ -43,7 +47,7 @@ export default function User() {
             return <TextField type="file"></TextField>;
           }}
         >
-          <CreateOutlined />
+          <Page />
         </Stack>
       </Stack>
       <Typography fontWeight={700} fontSize="28px">

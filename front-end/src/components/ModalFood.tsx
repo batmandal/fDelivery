@@ -7,6 +7,8 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { FoodType } from "./Foods";
 // import { Dispatch, SetStateAction } from "react";
 import { useData } from "./providers/DataProvider";
+import { useAuth } from "./providers/AuthProvider";
+import { toast } from "react-toastify";
 
 type ModalProps = {
   onClick: () => void;
@@ -16,10 +18,19 @@ export function ModalFood(props: ModalProps) {
   const { onClick, ...food } = props;
   const { name, price, ingredient, image, discount, type } = food;
 
-  // const [basketFood, setBasketFood] = useState<{} | null>();
-  // console.log(basketFood);
-
+  const { isLogged } = useAuth();
   const { addFoodToCart } = useData();
+
+  const basketChoice = () => {
+    if (isLogged === true) {
+      return addFoodToCart({
+        food,
+        quantity: 1,
+      });
+    } else {
+      toast.warning("you have to log-in", { position: "top-center" });
+    }
+  };
 
   return (
     <Stack
@@ -81,16 +92,15 @@ export function ModalFood(props: ModalProps) {
               label="+"
               variant="contained"
               sx={{ width: "fit-content" }}
+              // onClick={addFood}
             />
           </Stack>
           <CustomButton
             label="Сагслах"
             variant="contained"
             onClick={() => {
-              addFoodToCart({
-                food,
-                quantity: 1,
-              });
+              basketChoice();
+              // onClick;
             }}
           />
         </Stack>

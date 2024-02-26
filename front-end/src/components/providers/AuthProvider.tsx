@@ -33,7 +33,6 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserType | null>(null);
-  console.log(userData);
 
   const router = useRouter();
 
@@ -70,12 +69,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setIsLogged(false);
   };
 
-  const signup = async (email: String, password: String, name: String) => {
+  const signup = async (name: String, email: String, password: String) => {
     try {
       const { data } = await api.post("signUp", {
+        name,
         email,
         password,
-        name,
       });
 
       const { token } = data;
@@ -89,14 +88,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const getUser = async () => {
     try {
-      const { data } = await api.get("/user", {
+      const { data } = await api.get("/user/getUser", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       });
 
       setUserData(data);
-      // console.log(data);
+      console.log(data);
     } catch (error) {}
   };
 
