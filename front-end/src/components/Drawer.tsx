@@ -1,13 +1,17 @@
 "use client";
 
 import { Container, Drawer, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Choice, CustomButton } from ".";
 import { ArrowBackIos, ShoppingBasketOutlined } from "@mui/icons-material";
 import { Card } from "./Card";
+import { useData } from "./providers/DataProvider";
 
 export const Basket = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { basketFood } = useData();
+  console.log(basketFood);
+
   return (
     <>
       <Choice
@@ -41,7 +45,16 @@ export const Basket = () => {
             </Typography>
           </Stack>
           <Stack>
-            <Card />
+            {/* {basketFood.map(({ food, quantity }) => {
+              return (
+                <Card
+                  name={food.name}
+                  image={food.image}
+                  price={food.price}
+                  ingredient={food.ingredient}
+                />
+              );
+            })} */}
           </Stack>
         </Container>
         <Stack

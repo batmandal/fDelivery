@@ -2,11 +2,18 @@ import { Close } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import { CustomButton } from ".";
 
-export function Card() {
+type CardType = {
+  name: String;
+  price: String;
+  image: String;
+  ingredient: String;
+};
+
+export function Card({ image, name, price, ingredient }: CardType) {
   return (
     <Stack direction="row" gap={2}>
       <Stack width="50%">
-        <img src="cocktail.jpeg" />
+        <img src={`${image}`} />
       </Stack>
       <Stack gap={1} justifyContent="space-between">
         <Stack
@@ -16,17 +23,17 @@ export function Card() {
         >
           <Stack>
             <Typography fontSize="18px" fontWeight={600}>
-              Main Pizza{" "}
+              {name}
             </Typography>
             <Typography color="#18BA51" fontWeight={600} fontSize="18px">
-              34,800₮
+              {price}₮
             </Typography>
           </Stack>
           <Close />
         </Stack>
 
         <Typography color="#767676" fontWeight={400} fontSize="16px">
-          Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр{" "}
+          {ingredient}
         </Typography>
         <Stack direction="row" justifyContent="space-between">
           <CustomButton label="-" variant="contained" />

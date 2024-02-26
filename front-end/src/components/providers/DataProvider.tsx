@@ -1,14 +1,33 @@
 import { api } from "@/common/axios";
-import { PropsWithChildren, createContext, useContext } from "react";
+import {
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
+import { FoodType } from "../Foods";
 
 type DataContextType = {
   categoryPost: (categoryName: String) => void;
+  basketFood: any;
+  setBasketFood: any;
+  addFoodToCart: (params: CartFood) => void;
+};
+
+export type CartFood = {
+  food: FoodType;
+  quantity: number;
 };
 
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
+  const [basketFood, setBasketFood] = useState<CartFood[]>([]);
+
   const categoryPost = async (categoryName: String) => {
     try {
       const { data } = await api.post("/categories", {
@@ -21,8 +40,16 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const addFoodToCart = ({ food, quantity }: CartFood) => {
+    setBasketFood((prev) => {
+      return [...prev, { food, quantity }];
+    });
+  };
+
   return (
-    <DataContext.Provider value={{ categoryPost }}>
+    <DataContext.Provider
+      value={{ categoryPost, basketFood, setBasketFood, addFoodToCart }}
+    >
       {children}
     </DataContext.Provider>
   );

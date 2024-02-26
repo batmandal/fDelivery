@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 import { LogInModal } from "./LogIn";
 import { useAuth } from "./providers/AuthProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Basket } from "./Drawer";
 
 const text = ["НҮҮР", "ХООЛНЫ ЦЭС", "ХҮРГЭЛТИЙН БҮС"];
@@ -18,19 +18,25 @@ export function Header() {
   const router = useRouter();
   const { isLogged } = useAuth();
 
-  const [textClick, setTextClick] = useState<string>("НҮҮР");
+  const [activeTab, setActiveTab] = useState(text[0]);
 
   const action = () => {
-    if (textClick === "НҮҮР") {
+    if (activeTab === text[0]) {
       return router.push("/home-page");
     }
-    if (textClick === "ХООЛНЫ ЦЭС") {
+    if (activeTab === text[1]) {
       return router.push("/menu-page");
     }
-    if (textClick === "ХҮРГЭЛТИЙН БҮС") {
+    if (activeTab === text[2]) {
       return router.push("/delivery-area");
     }
   };
+
+  console.log(activeTab, "activeTab");
+
+  // useEffect(() => {
+  //   activeTab;
+  // }, []);
 
   return (
     <Stack
@@ -59,7 +65,7 @@ export function Header() {
                   fontSize="14px"
                   padding="12px 16px"
                   onClick={() => {
-                    setTextClick(a), action();
+                    setActiveTab(a), action();
                   }}
                   sx={{ cursor: "pointer" }}
                 >

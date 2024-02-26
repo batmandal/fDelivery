@@ -10,7 +10,7 @@ const foodSchema = new Schema({
   ingredient: { type: String, required: true },
   discount: { type: Number, required: false, default: 0 },
   type: { type: String, required: true },
-  onSale: { type: Number, require: false },
+  onSale: { type: Boolean, require: false },
 });
 
 export const FoodModel = model("food", foodSchema);

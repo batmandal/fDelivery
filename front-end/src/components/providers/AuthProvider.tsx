@@ -33,6 +33,8 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserType | null>(null);
+  console.log(userData);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -94,6 +96,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
 
       setUserData(data);
+      // console.log(data);
     } catch (error) {}
   };
 

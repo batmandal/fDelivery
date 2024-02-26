@@ -8,16 +8,23 @@ import { FoodType } from "@/components/Foods";
 import { useFetch } from "@/hooks/useFetch";
 import { MoreVert } from "@mui/icons-material";
 import { Container, Grid, Stack, Typography } from "@mui/material";
+import { ReactNode, useState } from "react";
 
 type CategoryStyleType = {
   // _id: string;
   categoryName: string;
+  onClick: () => void;
+  sx: any;
 };
 
 export default function Admin() {
-  const { datas, loading, error } = useFetch<CategoryStyleType[]>(
-    "http://localhost:3008/categories"
-  );
+  const {
+    datas: categoryData,
+    loading: categoryLoading,
+    error: categoryError,
+  } = useFetch<CategoryStyleType[]>("http://localhost:3008/categories");
+
+  console.log(categoryData, "yanada");
 
   const {
     datas: foodData,
@@ -25,17 +32,30 @@ export default function Admin() {
     error: foodError,
   } = useFetch<FoodType[]>("http://localhost:3008/foods");
 
-  console.log(datas);
+  const [active, setActive] = useState("hi");
+  console.log(active, "blabla");
 
   return (
-    <Container maxWidth="lg" sx={{ display: "flex", height: "100vh" }}>
+    <Container maxWidth="lg" sx={{ display: "flex", height: "fit-content" }}>
       <Stack width="25%" height="100%" paddingRight={3} gap={5}>
         <Typography fontSize="22px" fontWeight={700}>
           Food menu{" "}
         </Typography>
         <Stack gap="26px">
-          {datas.map((item, id) => {
-            return <CategoryStyle key={id} categoryName={item.categoryName} />;
+          {categoryData.map((item, id) => {
+            return (
+              <CategoryStyle
+                key={id}
+                categoryName={item.categoryName}
+                onClick={() => setActive(item.categoryName)}
+                sx={{
+                  background: `${
+                    active === item.categoryName ? "#18BA51" : null
+                  }`,
+                  color: `${active === item.categoryName ? "#fff" : null}`,
+                }}
+              />
+            );
           })}
           <AddCategory />
         </Stack>
@@ -63,7 +83,7 @@ export default function Admin() {
   );
 }
 export function CategoryStyle(props: CategoryStyleType) {
-  const { categoryName } = props;
+  const { categoryName, onClick, sx } = props;
 
   return (
     <Stack
@@ -78,6 +98,8 @@ export function CategoryStyle(props: CategoryStyleType) {
       alignItems="center"
       px={2}
       py={1}
+      onClick={onClick}
+      sx={sx}
     >
       {categoryName}
       <Stack>

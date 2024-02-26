@@ -2,6 +2,7 @@ import { Star } from "@/assets/svg/Star";
 import { AddCategory } from "@/components/AddCategory";
 import { CreateFood } from "@/components/CreateFood";
 import { Basket } from "@/components/Drawer";
+import Page from "@/components/upload/UploadImage";
 import { Stack, Typography } from "@mui/material";
 
 export default function DeliveryArea() {
@@ -24,8 +25,7 @@ export default function DeliveryArea() {
           <Stack></Stack>
         </Stack>
       </Stack> */}
-      <CreateFood />
-      <AddCategory />
+      <Page />
     </>
   );
 }

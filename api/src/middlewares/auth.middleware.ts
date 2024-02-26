@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
-import jwt from "jsonwebtoken";
+
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const authMiddleware: RequestHandler = (req, res, next) => {
   const { authorization } = req.headers;
@@ -8,7 +9,9 @@ export const authMiddleware: RequestHandler = (req, res, next) => {
   }
 
   try {
-    jwt.verify(authorization, "secret");
+    const payload = jwt.verify(authorization, "secret") as JwtPayload;
+
+    // req.params = { payload };
 
     next();
   } catch (error) {

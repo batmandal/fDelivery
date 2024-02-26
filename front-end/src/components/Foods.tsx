@@ -14,13 +14,14 @@ type FoodsProps = {
 };
 
 export type FoodType = {
-  _id: string;
-  name: string;
-  price: string;
-  discount: string;
-  image: string;
-  type: string;
-  ingredient: string;
+  _id: String;
+  name: String;
+  price: String;
+  discount: String;
+  image: any;
+  type: String;
+  ingredient: String;
+  // onSale?: Boolean | null;
 };
 
 export function Foods(props: FoodsProps) {

@@ -5,13 +5,22 @@ import { Stack, Typography } from "@mui/material";
 import { CustomButton } from "@/components";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { FoodType } from "./Foods";
+// import { Dispatch, SetStateAction } from "react";
+import { useData } from "./providers/DataProvider";
 
 type ModalProps = {
   onClick: () => void;
 } & FoodType;
 
 export function ModalFood(props: ModalProps) {
-  const { name, price, ingredient, image, onClick } = props;
+  const { onClick, ...food } = props;
+  const { name, price, ingredient, image, discount, type } = food;
+
+  // const [basketFood, setBasketFood] = useState<{} | null>();
+  // console.log(basketFood);
+
+  const { addFoodToCart } = useData();
+
   return (
     <Stack
       padding={4}
@@ -74,7 +83,16 @@ export function ModalFood(props: ModalProps) {
               sx={{ width: "fit-content" }}
             />
           </Stack>
-          <CustomButton label="Сагслах" variant="contained" />
+          <CustomButton
+            label="Сагслах"
+            variant="contained"
+            onClick={() => {
+              addFoodToCart({
+                food,
+                quantity: 1,
+              });
+            }}
+          />
         </Stack>
       </Stack>
     </Stack>
