@@ -24,6 +24,7 @@ export function Toggle(props: ToggleProps) {
       sx={{
         background: `${onToggle === true ? "#18BA51" : "#8B8E95"}`,
         justifyContent: `${onToggle === true ? "flex-end" : "flex-start"}`,
+        cursor: "pointer",
       }}
       style={style}
       width="28px"
@@ -32,13 +33,13 @@ export function Toggle(props: ToggleProps) {
       justifyContent="center"
       padding="2px"
       direction="row"
+      onClick={active}
     >
       <Stack
         borderRadius="50%"
         bgcolor="white"
         width="12px"
         height="100%"
-        onClick={active}
       ></Stack>
     </Stack>
   );

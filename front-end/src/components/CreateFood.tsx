@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { ReactNode, useState } from "react";
 import { Toggle } from "./Toggle";
+import { Inputs } from "./FoodInputs";
 
 const inputs2 = [
   { label: "Хоолны нэр", placeholder: "Хоолны нэр", type: "text" },
@@ -106,55 +107,55 @@ export function CreateFood() {
   );
 }
 
-type inputsType = {
-  label: string;
-  icon?: ReactNode;
-  placeholder: string;
-  src?: string;
-  type: string;
-};
-export function Inputs(props: inputsType & TextFieldProps) {
-  const { label, icon, placeholder, type, ...rest } = props;
+// type inputsType = {
+//   label: string;
+//   icon?: ReactNode;
+//   placeholder: string;
+//   src?: string;
+//   type: string;
+// };
+// export function Inputs(props: inputsType & TextFieldProps) {
+//   const { label, icon, placeholder, type, ...rest } = props;
 
-  const [foodImage, setFoodImage] = useState<string>("");
-  console.log(foodImage);
+//   const [foodImage, setFoodImage] = useState<string>("");
+//   console.log(foodImage);
 
-  return (
-    <Stack gap={1}>
-      <Stack direction="row" alignItems="center" gap={1}>
-        <Toggle />
-        <Typography>{label}</Typography>
-      </Stack>
-      <Stack width="100%">
-        <Stack direction="row" gap={1} alignItems="center">
-          <Stack alignItems="center" gap={1} width="100%" bgcolor="#F4F4F4">
-            <Typography
-              style={{
-                display: `${type === "file" ? "flex" : "none "}`,
-              }}
-              fontSize="16px"
-              fontWeight={700}
-            >
-              Add image for the food
-            </Typography>
-            <TextField
-              {...rest}
-              placeholder={placeholder}
-              type={type}
-              style={{ width: "100%" }}
-              onChange={(event) => setFoodImage(event.target.value)}
-            ></TextField>
-          </Stack>
-          <img
-            src={foodImage}
-            alt=""
-            style={{
-              display: `${type === "file" ? "flex" : "none "}`,
-              width: "50%",
-            }}
-          />
-        </Stack>
-      </Stack>
-    </Stack>
-  );
-}
+//   return (
+//     <Stack gap={1}>
+//       <Stack direction="row" alignItems="center" gap={1}>
+//         <Toggle />
+//         <Typography>{label}</Typography>
+//       </Stack>
+//       <Stack width="100%">
+//         <Stack direction="row" gap={1} alignItems="center">
+//           <Stack alignItems="center" gap={1} width="100%" bgcolor="#F4F4F4">
+//             <Typography
+//               style={{
+//                 display: `${type === "file" ? "flex" : "none "}`,
+//               }}
+//               fontSize="16px"
+//               fontWeight={700}
+//             >
+//               Add image for the food
+//             </Typography>
+//             <TextField
+//               {...rest}
+//               placeholder={placeholder}
+//               type={type}
+//               style={{ width: "100%" }}
+//               onChange={(event) => setFoodImage(event.target.value)}
+//             ></TextField>
+//           </Stack>
+//           <img
+//             src={foodImage}
+//             alt=""
+//             style={{
+//               display: `${type === "file" ? "flex" : "none "}`,
+//               width: "50%",
+//             }}
+//           />
+//         </Stack>
+//       </Stack>
+//     </Stack>
+//   );
+// }

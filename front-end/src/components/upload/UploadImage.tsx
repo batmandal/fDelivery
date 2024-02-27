@@ -70,7 +70,12 @@ const Page = () => {
             </Button>
             {imageUrl && (
               <Stack width="100%" pt="100%" position="relative">
-                <Image src={imageUrl} alt="Uploaded" fill />
+                <Image
+                  src={imageUrl}
+                  alt="Uploaded"
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
               </Stack>
             )}
           </Stack>

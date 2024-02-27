@@ -25,8 +25,19 @@ export default function User() {
   return (
     <Stack gap={5} alignItems="center" margin={8}>
       <Stack position="relative">
-        <Stack width="120px" borderRadius="50%" overflow="hidden">
-          <img src={`${imageUrl}`} />
+        <Stack
+          width="120px"
+          height="120px"
+          borderRadius="50%"
+          overflow="hidden"
+          bgcolor={"red"}
+          // display="grid"
+          // sx={{ placeContent: "center" }}
+        >
+          <img
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            src={`${imageUrl}`}
+          />
         </Stack>
         <Stack
           color="#18BA51"

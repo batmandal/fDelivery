@@ -1,13 +1,5 @@
 import { api } from "@/common/axios";
-import {
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { FoodType } from "../Foods";
 
