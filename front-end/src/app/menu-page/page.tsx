@@ -6,20 +6,20 @@ import { FoodsModal } from "@/components/FoodsModal";
 import { useFetch } from "@/hooks/useFetch";
 import { Container, Drawer, Grid, Stack } from "@mui/material";
 import { useState } from "react";
-
-const tabs = [
-  { text: "Breakfast" },
-  { text: "Soup" },
-  { text: "Dessert" },
-  { text: "Beverage" },
-];
+import { CategoryStyleType } from "../admin/page";
 
 export default function MenuPage() {
   const [selectedFood, setSelectedFood] = useState<FoodType | null>(null);
-  const { datas } = useFetch<FoodType[]>("http://localhost:3008/foods");
+  const { datas: foodData } = useFetch<FoodType[]>(
+    "http://localhost:3008/foods"
+  );
   const [menu, setMenu] = useState<string>("Breakfast");
-  const [activeTab, setActiveTab] = useState<any>(tabs[0]);
-  // console.log(activeTab);
+  const [activeTab, setActiveTab] = useState<any>("");
+  const {
+    datas: categoryData,
+    loading: categoryLoading,
+    error: categoryError,
+  } = useFetch<CategoryStyleType[]>("http://localhost:3008/categories");
 
   const typeTranslate = () => {
     if (menu === "Breakfast") {
@@ -33,41 +33,48 @@ export default function MenuPage() {
     }
     if (menu === "Beverage") {
       return "beverage";
+    } else {
+      null;
     }
   };
 
   return (
     <Container maxWidth="lg">
-      <Stack direction="row" justifyContent="space-between" py={4}>
-        {tabs.map((item) => {
+      {/* <Stack direction="row" justifyContent="space-between" py={4}> */}
+      <Grid container spacing={2}>
+        {categoryData.map((item) => {
           return (
-            <Stack
-              borderRadius="8px"
-              border="1px solid #D6D8DB"
-              fontSize="18x"
-              fontWeight="600"
-              py={1}
-              width="23%"
-              alignItems="center"
-              sx={{ cursor: "pointer" }}
-              bgcolor={`${activeTab === item ? "#18BA51" : null}`}
-              color={`${activeTab === item ? "#fff" : null}`}
-              onClick={() => {
-                setMenu(item.text), setActiveTab(item);
-              }}
-            >
-              {item.text}
-            </Stack>
+            <Grid item lg={3} md={4} sm={6} xs={12}>
+              <Stack
+                borderRadius="8px"
+                border="1px solid #D6D8DB"
+                fontSize="18x"
+                fontWeight="600"
+                py={1}
+                width="100%"
+                alignItems="center"
+                sx={{ cursor: "pointer" }}
+                bgcolor={`${activeTab === item ? "#18BA51" : null}`}
+                color={`${activeTab === item ? "#fff" : null}`}
+                onClick={() => {
+                  setMenu(item.categoryName), setActiveTab(item);
+                }}
+              >
+                {item.categoryName}
+              </Stack>
+            </Grid>
           );
         })}
-      </Stack>
+      </Grid>
+
+      {/* </Stack> */}
       <Stack>
         <Grid
           container
           spacing={2}
           sx={{ marginBottom: "105px", marginTop: "54px" }}
         >
-          {datas
+          {foodData
             .filter((f) => f.type === typeTranslate())
             .map((item) => {
               return (

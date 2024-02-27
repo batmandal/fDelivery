@@ -10,7 +10,7 @@ import { MoreVert } from "@mui/icons-material";
 import { Container, Grid, Stack, Typography } from "@mui/material";
 import { ReactNode, useState } from "react";
 
-type CategoryStyleType = {
+export type CategoryStyleType = {
   // _id: string;
   categoryName: string;
   onClick: () => void;
@@ -23,8 +23,7 @@ export default function Admin() {
     loading: categoryLoading,
     error: categoryError,
   } = useFetch<CategoryStyleType[]>("http://localhost:3008/categories");
-
-  console.log(categoryData, "yanada");
+  // console.log(categoryData[0].categoryName, "blodl bnda");
 
   const {
     datas: foodData,
@@ -32,7 +31,7 @@ export default function Admin() {
     error: foodError,
   } = useFetch<FoodType[]>("http://localhost:3008/foods");
 
-  const [active, setActive] = useState("hi");
+  const [active, setActive] = useState("Breakfast");
 
   return (
     <Container maxWidth="lg" sx={{ display: "flex", height: "fit-content" }}>

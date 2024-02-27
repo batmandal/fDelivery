@@ -63,8 +63,10 @@ export const Basket = () => {
           padding=" 49px 32px 69px 32px"
           gap="10px"
           boxShadow="0px 0px 8px 8px #BBBECD33"
+          bgcolor="white"
+          position="fixed"
         >
-          <Stack width="100%">
+          <Stack width="256px">
             <Typography color="#5E6166" fontWeight={400} fontSize="18px">
               Нийт төлөх дүн
             </Typography>
@@ -75,7 +77,7 @@ export const Basket = () => {
           <CustomButton
             label="Захиалах"
             variant="contained"
-            sx={{ width: "100%" }}
+            sx={{ width: "256px", right: "0" }}
           />
         </Stack>
       </Drawer>
