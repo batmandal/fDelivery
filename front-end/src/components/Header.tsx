@@ -5,38 +5,25 @@ import { CustomInput } from "@/components/Input";
 import { Choice } from "@/components";
 import { PersonOutlineOutlined } from "@mui/icons-material";
 import { Pinecone } from "@/assets/svg/Pinecone";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { LogInModal } from "./LogIn";
 import { useAuth } from "./providers/AuthProvider";
 import { useEffect, useState } from "react";
 import { Basket } from "./Drawer";
+import Link from "next/link";
 
-const text = ["НҮҮР", "ХООЛНЫ ЦЭС", "ХҮРГЭЛТИЙН БҮС"];
+const text = [
+  { label: "НҮҮР", link: "/home-page" },
+  { label: "ХООЛНЫ ЦЭС", link: "/menu-page" },
+  { label: "ХҮРГЭЛТИЙН БҮС", link: "/delivery-area" },
+];
 
 export function Header() {
   const router = useRouter();
-  const { isLogged } = useAuth();
+  const { isLogged, checkAdmin } = useAuth();
 
-  const [activeTab, setActiveTab] = useState(text[0]);
-
-  const action = () => {
-    if (activeTab === text[0]) {
-      return router.push("/home-page");
-    }
-    if (activeTab === text[1]) {
-      return router.push("/menu-page");
-    }
-    if (activeTab === text[2]) {
-      return router.push("/delivery-area");
-    }
-  };
-
-  console.log(activeTab, "activeTab");
-
-  // useEffect(() => {
-  //   activeTab;
-  // }, []);
+  const pathName = usePathname();
 
   return (
     <Stack
@@ -56,23 +43,37 @@ export function Header() {
       >
         <Stack direction="row" style={{ alignItems: "center" }}>
           <Pinecone />
-          <Stack direction="row" gap={1}>
+          <Stack direction="row" gap={1} alignItems="center">
             {text.map((a, i) => {
               return (
-                <Typography
-                  key={i}
-                  fontWeight={700}
-                  fontSize="14px"
-                  padding="12px 16px"
-                  onClick={() => {
-                    setActiveTab(a), action();
-                  }}
-                  sx={{ cursor: "pointer" }}
-                >
-                  {a}
-                </Typography>
+                <Link href={a.link}>
+                  <Typography
+                    key={i}
+                    fontWeight={700}
+                    fontSize="14px"
+                    padding="12px 16px"
+                    sx={{
+                      cursor: "pointer",
+                      color: pathName === a.link ? "primary.main" : null,
+                    }}
+                  >
+                    {a.label}
+                  </Typography>
+                </Link>
               );
             })}
+            {checkAdmin && (
+              <Typography
+                fontWeight="800"
+                fontSize="16px"
+                color="primary.main"
+                onClick={() => {
+                  router.push("/admin");
+                }}
+              >
+                Admin
+              </Typography>
+            )}
           </Stack>
         </Stack>
         <Stack direction="row" gap={1} style={{ alignItems: "center" }}>

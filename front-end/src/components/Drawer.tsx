@@ -44,7 +44,7 @@ export const Basket = () => {
             </Typography>
           </Stack>
           <Stack>
-            {/* {basketFood.map(({ food, quantity }) => {
+            {basketFood.map(({ food, quantity }) => {
               return (
                 <Card
                   name={food.name}
@@ -53,7 +53,7 @@ export const Basket = () => {
                   ingredient={food.ingredient}
                 />
               );
-            })} */}
+            })}
           </Stack>
         </Container>
         <Stack

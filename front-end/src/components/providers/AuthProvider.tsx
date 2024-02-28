@@ -26,6 +26,8 @@ type AuthContextType = {
   logout: () => void;
   userData: UserType | null;
   setUserData?: Dispatch<SetStateAction<UserType | null>>;
+  checkAdmin: boolean;
+  setCheckAdmin?: Dispatch<SetStateAction<boolean>>;
 };
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -33,6 +35,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserType | null>(null);
+  const [checkAdmin, setCheckAdmin] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -94,6 +97,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         },
       });
 
+      if (data.role === "admin") {
+        setCheckAdmin(true);
+      }
+
       setUserData(data);
       console.log(data);
     } catch (error) {}
@@ -104,7 +111,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLogged, signup, login, logout, userData }}>
+    <AuthContext.Provider
+      value={{ isLogged, signup, login, logout, userData, checkAdmin }}
+    >
       {children}
     </AuthContext.Provider>
   );

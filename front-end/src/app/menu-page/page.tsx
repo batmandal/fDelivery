@@ -4,7 +4,7 @@ import { Food } from "@/components/Food";
 import { FoodType } from "@/components/Foods";
 import { FoodsModal } from "@/components/FoodsModal";
 import { useFetch } from "@/hooks/useFetch";
-import { Container, Drawer, Grid, Stack } from "@mui/material";
+import { Container, Grid, Stack } from "@mui/material";
 import { useState } from "react";
 import { CategoryStyleType } from "../admin/page";
 
@@ -40,7 +40,6 @@ export default function MenuPage() {
 
   return (
     <Container maxWidth="lg">
-      {/* <Stack direction="row" justifyContent="space-between" py={4}> */}
       <Grid container spacing={2}>
         {categoryData.map((item) => {
           return (
@@ -67,7 +66,6 @@ export default function MenuPage() {
         })}
       </Grid>
 
-      {/* </Stack> */}
       <Stack>
         <Grid
           container
