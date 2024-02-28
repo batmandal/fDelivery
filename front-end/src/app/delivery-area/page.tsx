@@ -4,6 +4,7 @@ import { CreateFood } from "@/components/CreateFood";
 import { Basket } from "@/components/Drawer";
 import Page from "@/components/upload/UploadImage";
 import { Stack, Typography } from "@mui/material";
+// import { SelectInput } from "../foodOrder/page";
 
 export default function DeliveryArea() {
   return (
@@ -26,6 +27,7 @@ export default function DeliveryArea() {
         </Stack>
       </Stack> */}
       <Page />
+      {/* <SelectInput /> */}
     </>
   );
 }

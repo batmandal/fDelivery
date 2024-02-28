@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { Choice, CustomButton } from ".";
 import { ArrowBackIos, ShoppingBasketOutlined } from "@mui/icons-material";
 import { Card } from "./Card";
-import { useData } from "./providers/DataProvider";
+import { CartFood, useData } from "./providers/DataProvider";
+import Link from "next/link";
 
 export const Basket = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { basketFood } = useData();
+  console.log(basketFood, "check");
 
   return (
     <>
@@ -44,16 +46,18 @@ export const Basket = () => {
             </Typography>
           </Stack>
           <Stack>
-            {basketFood.map(({ food, quantity }) => {
-              return (
-                <Card
-                  name={food.name}
-                  image={food.image}
-                  price={food.price}
-                  ingredient={food.ingredient}
-                />
-              );
-            })}
+            {basketFood &&
+              basketFood.map((basketFood) => {
+                return (
+                  <Card
+                    name={basketFood.food.name}
+                    image={basketFood.food.image}
+                    price={basketFood.food.price}
+                    ingredient={basketFood.food.ingredient}
+                    count={basketFood.quantity}
+                  />
+                );
+              })}
           </Stack>
         </Container>
         <Stack
@@ -74,11 +78,16 @@ export const Basket = () => {
               34,800₮
             </Typography>
           </Stack>
-          <CustomButton
-            label="Захиалах"
-            variant="contained"
-            sx={{ width: "256px", right: "0" }}
-          />
+          <Link href={"/foodOrder"}>
+            <CustomButton
+              label="Захиалах"
+              variant="contained"
+              sx={{ width: "256px", right: "0" }}
+              onClick={() => {
+                setIsDrawerOpen(false);
+              }}
+            />
+          </Link>
         </Stack>
       </Drawer>
     </>

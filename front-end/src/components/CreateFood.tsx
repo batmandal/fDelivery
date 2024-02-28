@@ -1,17 +1,9 @@
 "use client";
 
 import { Add, Close } from "@mui/icons-material";
-import {
-  Button,
-  Container,
-  Modal,
-  Stack,
-  TextField,
-  Typography,
-  TextFieldProps,
-} from "@mui/material";
-import { ReactNode, useState } from "react";
-import { Toggle } from "./Toggle";
+import { Button, Modal, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+
 import { Inputs } from "./FoodInputs";
 
 const inputs2 = [
@@ -99,7 +91,6 @@ export function CreateFood() {
             >
               Continue
             </Button>
-            {/* <Toggle /> */}
           </Stack>
         </Stack>
       </Modal>

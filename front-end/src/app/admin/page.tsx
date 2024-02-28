@@ -8,7 +8,7 @@ import { FoodType } from "@/components/Foods";
 import { useFetch } from "@/hooks/useFetch";
 import { MoreVert } from "@mui/icons-material";
 import { Container, Grid, Stack, Typography } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export type CategoryStyleType = {
   // _id: string;
@@ -23,7 +23,6 @@ export default function Admin() {
     loading: categoryLoading,
     error: categoryError,
   } = useFetch<CategoryStyleType[]>("http://localhost:3008/categories");
-  // console.log(categoryData[0].categoryName, "blodl bnda");
 
   const {
     datas: foodData,

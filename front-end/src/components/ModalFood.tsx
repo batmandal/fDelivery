@@ -5,31 +5,28 @@ import { Stack, Typography } from "@mui/material";
 import { CustomButton } from "@/components";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { FoodType } from "./Foods";
-// import { Dispatch, SetStateAction } from "react";
 import { useData } from "./providers/DataProvider";
 import { useAuth } from "./providers/AuthProvider";
-import { toast } from "react-toastify";
+import { useState } from "react";
 
 type ModalProps = {
   onClick: () => void;
 } & FoodType;
 
 export function ModalFood(props: ModalProps) {
+  const [foodCount, setFoodCount] = useState(1);
+
   const { onClick, ...food } = props;
   const { name, price, ingredient, image, discount, type } = food;
 
   const { isLogged } = useAuth();
-  const { addFoodToCart } = useData();
+  const { basketFood, setBasketFood } = useData();
 
-  const basketChoice = () => {
-    if (isLogged === true) {
-      return addFoodToCart({
-        food,
-        quantity: 1,
-      });
-    } else {
-      toast.warning("you have to log-in", { position: "top-center" });
-    }
+  const changeCount = (change: number) => {
+    setFoodCount((prev) => {
+      if (change < 0 && prev == 1) return prev;
+      return change + prev;
+    });
   };
 
   return (
@@ -86,21 +83,39 @@ export function ModalFood(props: ModalProps) {
               label="-"
               variant="contained"
               sx={{ width: "fit-content" }}
+              onClick={() => {
+                changeCount(-1);
+              }}
             />
-            {1}
+            {foodCount}
             <CustomButton
               label="+"
               variant="contained"
               sx={{ width: "fit-content" }}
-              // onClick={addFood}
+              onClick={() => {
+                changeCount(1);
+              }}
             />
           </Stack>
           <CustomButton
             label="Сагслах"
             variant="contained"
             onClick={() => {
-              basketChoice();
-              // onClick;
+              let exist = false;
+              const newBasketFood = basketFood.map((element) => {
+                if (element.food.name == name) {
+                  exist = true;
+                  element.quantity += foodCount;
+                  return element;
+                } else {
+                  return element;
+                }
+              });
+              if (!exist) {
+                setBasketFood([...basketFood, { food, quantity: foodCount }]);
+              } else {
+                setBasketFood(newBasketFood);
+              }
             }}
           />
         </Stack>

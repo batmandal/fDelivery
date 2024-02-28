@@ -2,14 +2,15 @@ import { Close } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import { CustomButton } from ".";
 
-type CardType = {
+export type CardType = {
   name: String;
   price: String;
   image: String;
   ingredient: String;
+  count: number;
 };
 
-export function Card({ image, name, price, ingredient }: CardType) {
+export function Card({ image, name, price, ingredient, count }: CardType) {
   return (
     <Stack direction="row" gap={2}>
       <Stack width="50%">
@@ -43,7 +44,7 @@ export function Card({ image, name, price, ingredient }: CardType) {
             display="grid"
             style={{ placeContent: "center" }}
           >
-            1
+            {count}
           </Typography>
           <CustomButton label="+" variant="contained" />
         </Stack>

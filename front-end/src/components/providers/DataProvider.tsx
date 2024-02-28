@@ -1,12 +1,22 @@
+"use client";
+
 import { api } from "@/common/axios";
-import { PropsWithChildren, createContext, useContext, useState } from "react";
+import {
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import { FoodType } from "../Foods";
 
 type DataContextType = {
   categoryPost: (categoryName: String) => void;
-  basketFood: any;
-  setBasketFood: any;
+  basketFood: CartFood[];
+  setBasketFood: Dispatch<SetStateAction<CartFood[]>>;
   addFoodToCart: (params: CartFood) => void;
   imageUrl: any;
   setImageUrl: any;
@@ -41,6 +51,19 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
       return [...prev, { food, quantity }];
     });
   };
+
+  useEffect(() => {
+    if (!basketFood.length) return;
+    const data = JSON.stringify(basketFood);
+    localStorage.setItem("cart", data);
+  }, [basketFood]);
+
+  useEffect(() => {
+    const rawData = localStorage.getItem("cart");
+    if (!rawData) return;
+    const data = JSON.parse(rawData);
+    setBasketFood(data);
+  }, []);
 
   return (
     <DataContext.Provider
