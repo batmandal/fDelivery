@@ -17,10 +17,10 @@ export function ModalFood(props: ModalProps) {
   const [foodCount, setFoodCount] = useState(1);
 
   const { onClick, ...food } = props;
-  const { name, price, ingredient, image, discount, type } = food;
+  const { name, price, ingredient, image } = food;
 
   const { isLogged } = useAuth();
-  const { basketFood, setBasketFood } = useData();
+  const { basketFood, setBasketFood, setTotalPrice } = useData();
 
   const changeCount = (change: number) => {
     setFoodCount((prev) => {
@@ -110,6 +110,7 @@ export function ModalFood(props: ModalProps) {
                 } else {
                   return element;
                 }
+                // setTotalPrice(addPrice);
               });
               if (!exist) {
                 setBasketFood([...basketFood, { food, quantity: foodCount }]);

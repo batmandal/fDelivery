@@ -9,39 +9,24 @@ import { useState } from "react";
 import { CategoryStyleType } from "../admin/page";
 
 export default function MenuPage() {
-  const [selectedFood, setSelectedFood] = useState<FoodType | null>(null);
   const { datas: foodData } = useFetch<FoodType[]>(
     "http://localhost:3008/foods"
   );
-  const [menu, setMenu] = useState<string>("Breakfast");
-  const [activeTab, setActiveTab] = useState<any>("");
+
   const {
     datas: categoryData,
     loading: categoryLoading,
     error: categoryError,
   } = useFetch<CategoryStyleType[]>("http://localhost:3008/categories");
 
-  const typeTranslate = () => {
-    if (menu === "Breakfast") {
-      return "breakfast";
-    }
-    if (menu === "Soup") {
-      return "main";
-    }
-    if (menu === "Dessert") {
-      return "appetizer";
-    }
-    if (menu === "Beverage") {
-      return "beverage";
-    } else {
-      null;
-    }
-  };
+  const [menu, setMenu] = useState<string>();
+  const [activeTab, setActiveTab] = useState<any>();
+  const [selectedFood, setSelectedFood] = useState<FoodType | null>(null);
 
   return (
     <Container maxWidth="lg">
       <Grid container spacing={2}>
-        {categoryData.map((item) => {
+        {categoryData.map((item, index) => {
           return (
             <Grid item lg={3} md={4} sm={6} xs={12}>
               <Stack
@@ -73,7 +58,7 @@ export default function MenuPage() {
           sx={{ marginBottom: "105px", marginTop: "54px" }}
         >
           {foodData
-            .filter((f) => f.type === typeTranslate())
+            .filter((f) => f.categoryName === menu)
             .map((item) => {
               return (
                 <Grid item lg={3} md={4} sm={6} xs={12}>

@@ -28,7 +28,6 @@ export function Inputs(props: inputsType & TextFieldProps) {
   );
 
   const [foodImage, setFoodImage] = useState<string>("");
-  const [getCategory, setGetCategory] = useState<any>();
 
   return (
     <Stack gap={1}>
@@ -61,6 +60,7 @@ export function Inputs(props: inputsType & TextFieldProps) {
               }}
             ></TextField>
             <TextField
+              {...rest}
               select={true}
               placeholder="eesda"
               sx={{

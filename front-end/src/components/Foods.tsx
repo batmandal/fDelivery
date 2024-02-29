@@ -19,7 +19,7 @@ export type FoodType = {
   price: String;
   discount: String;
   image: any;
-  type: String;
+  categoryName: String;
   ingredient: String;
   // onSale?: Boolean | null;
 };
@@ -27,9 +27,12 @@ export type FoodType = {
 export function Foods(props: FoodsProps) {
   const [selectedFood, setSelectedFood] = useState<FoodType | null>(null);
 
-  const { datas, loading, error, refetch } = useFetch<FoodType[]>(
-    "http://localhost:3008/foods"
-  );
+  const {
+    datas: foodData,
+    loading,
+    error,
+    refetch,
+  } = useFetch<FoodType[]>("http://localhost:3008/foods");
 
   const { type } = props;
   const typeTranslate = () => {
@@ -81,8 +84,8 @@ export function Foods(props: FoodsProps) {
       </Stack>
 
       <Grid container spacing={2}>
-        {datas
-          .filter((food) => food.type === typeTranslate())
+        {foodData
+          .filter((food) => food.categoryName === typeTranslate())
           .map((item) => {
             return (
               <Grid item lg={3} md={4} sm={6} xs={12}>

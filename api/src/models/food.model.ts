@@ -5,12 +5,12 @@ const foodSchema = new Schema({
     type: String,
     required: true,
   },
-  image: { type: String, required: true },
-  price: { type: Number, required: true },
+  categoryName: { type: String, required: true },
   ingredient: { type: String, required: true },
-  discount: { type: Number, required: false, default: 0 },
-  type: { type: String, required: true },
+  price: { type: Number, required: true },
   onSale: { type: Boolean, require: false },
+  image: { type: String, required: true },
+  discount: { type: Number, required: false, default: 0 },
 });
 
 export const FoodModel = model("food", foodSchema);

@@ -3,21 +3,42 @@
 import { Add, Close } from "@mui/icons-material";
 import { Button, Modal, Stack, Typography } from "@mui/material";
 import { useState } from "react";
-
+import * as yup from "yup";
 import { Inputs } from "./FoodInputs";
+import { useFormik } from "formik";
+import { useData } from "./providers/DataProvider";
 
 const inputs2 = [
-  { label: "Хоолны нэр", placeholder: "Хоолны нэр", type: "text" },
-  { label: "Хоолны ангилал", placeholder: "Хоолны ангилал", type: "text" },
-  { label: "Хоолны орц", placeholder: "Хоолны орц", type: "text" },
-  { label: "Хоолны үнэ", placeholder: "Хоолны үнэ", type: "number" },
-  { label: "Хямдралтай эсэх", placeholder: "Хоолны нэр", type: "number" },
-  { label: "Хоолны зураг", placeholder: "Хоолны нэр", type: "file" },
+  {
+    label: "Хоолны нэр",
+    placeholder: "Хоолны нэр",
+    type: "text",
+    name: "name",
+  },
+  // { label: "Хоолны ангилал", placeholder: "Хоолны ангилал", type: "select" },
+  // { label: "Хоолны орц", placeholder: "Хоолны орц", type: "text" },
+  // { label: "Хоолны үнэ", placeholder: "Хоолны үнэ", type: "number" },
+  // { label: "Хямдралтай эсэх", placeholder: "Хоолны нэр", type: "number" },
+  // { label: "Хоолны зураг", placeholder: "Хоолны нэр", type: "file" },
 ];
+
+const validationSchema = yup.object({ name: yup.string().required() });
 
 export function CreateFood() {
   const [open, setOpen] = useState<boolean>(false);
   const handleClose = () => setOpen(false);
+  const { foodPost } = useData();
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log(formik.values.name);
+    },
+  });
+
   return (
     <>
       <Stack
@@ -64,11 +85,18 @@ export function CreateFood() {
           </Stack>
           <Stack padding={3} gap={2}>
             {inputs2.map((inp) => {
+              const { placeholder, type, label, name } = inp;
               return (
                 <Inputs
-                  placeholder={inp.placeholder}
-                  type={inp.type}
-                  label={inp.label}
+                  name={name}
+                  placeholder={placeholder}
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.name && Boolean(formik.errors.name)}
+                  helperText={formik.touched.name && formik.errors.name}
+                  type={type}
+                  label={label}
                 />
               );
             })}
@@ -97,56 +125,3 @@ export function CreateFood() {
     </>
   );
 }
-
-// type inputsType = {
-//   label: string;
-//   icon?: ReactNode;
-//   placeholder: string;
-//   src?: string;
-//   type: string;
-// };
-// export function Inputs(props: inputsType & TextFieldProps) {
-//   const { label, icon, placeholder, type, ...rest } = props;
-
-//   const [foodImage, setFoodImage] = useState<string>("");
-//   console.log(foodImage);
-
-//   return (
-//     <Stack gap={1}>
-//       <Stack direction="row" alignItems="center" gap={1}>
-//         <Toggle />
-//         <Typography>{label}</Typography>
-//       </Stack>
-//       <Stack width="100%">
-//         <Stack direction="row" gap={1} alignItems="center">
-//           <Stack alignItems="center" gap={1} width="100%" bgcolor="#F4F4F4">
-//             <Typography
-//               style={{
-//                 display: `${type === "file" ? "flex" : "none "}`,
-//               }}
-//               fontSize="16px"
-//               fontWeight={700}
-//             >
-//               Add image for the food
-//             </Typography>
-//             <TextField
-//               {...rest}
-//               placeholder={placeholder}
-//               type={type}
-//               style={{ width: "100%" }}
-//               onChange={(event) => setFoodImage(event.target.value)}
-//             ></TextField>
-//           </Stack>
-//           <img
-//             src={foodImage}
-//             alt=""
-//             style={{
-//               display: `${type === "file" ? "flex" : "none "}`,
-//               width: "50%",
-//             }}
-//           />
-//         </Stack>
-//       </Stack>
-//     </Stack>
-//   );
-// }

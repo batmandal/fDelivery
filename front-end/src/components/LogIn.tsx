@@ -26,7 +26,6 @@ export function LogInModal(props: TypeModal) {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       login(values.email, values.password);
-      // console.log(values.email, values.password);
     },
   });
 

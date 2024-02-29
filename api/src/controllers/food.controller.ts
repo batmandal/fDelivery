@@ -8,14 +8,14 @@ export const getAllFoods: RequestHandler = async (req, res) => {
   res.json(foods);
 };
 export const createFood: RequestHandler = async (req, res) => {
-  const { name, discount, image, ingredient, price, type } = req.body;
+  const { name, categoryName, ingredient, price, onSale, image } = req.body;
   const food = await FoodModel.create({
     name,
-    discount,
-    image,
+    categoryName,
     ingredient,
     price,
-    type,
+    onSale,
+    image,
   });
-  res.json(food);
+  res.json({ food, message: "created food successfully" });
 };

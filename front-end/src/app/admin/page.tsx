@@ -8,7 +8,7 @@ import { FoodType } from "@/components/Foods";
 import { useFetch } from "@/hooks/useFetch";
 import { MoreVert } from "@mui/icons-material";
 import { Container, Grid, Stack, Typography } from "@mui/material";
-import { ReactNode, useEffect, useState } from "react";
+import { useState } from "react";
 
 export type CategoryStyleType = {
   // _id: string;
@@ -57,7 +57,12 @@ export default function Admin() {
           <AddCategory />
         </Stack>
       </Stack>
-      <Stack width="75%" height="100%" bgcolor="#D6D7DC" padding={2}>
+      <Stack
+        width="75%"
+        bgcolor="white"
+        padding={2}
+        sx={{ boxShadow: "8px 10px 30px 30px #F5F5F5 inset" }}
+      >
         <Stack direction="row" justifyContent="space-between" py={2}>
           <Typography fontWeight={700} fontSize="22px">
             Breakfast
@@ -65,14 +70,16 @@ export default function Admin() {
           <CreateFood />
         </Stack>
         <Stack>
-          <Grid container>
-            {foodData.map((food) => {
-              return (
-                <Grid item lg={3} md={4} sm={6} xs={12}>
-                  <Food {...food} onClick={() => {}} />
-                </Grid>
-              );
-            })}
+          <Grid container spacing={2}>
+            {foodData
+              .filter((food) => food.categoryName === active)
+              .map((food) => {
+                return (
+                  <Grid item lg={3} md={4} sm={6} xs={12}>
+                    <Food {...food} onClick={() => {}} />
+                  </Grid>
+                );
+              })}
           </Grid>
         </Stack>
       </Stack>

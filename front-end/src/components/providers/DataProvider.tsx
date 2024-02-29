@@ -20,6 +20,10 @@ type DataContextType = {
   addFoodToCart: (params: CartFood) => void;
   imageUrl: any;
   setImageUrl: any;
+  foodPost: (props: FoodPostType) => Promise<void>;
+  totalPrice: number;
+  setTotalPrice: Dispatch<SetStateAction<number>>;
+  // addPrice: any;
 };
 
 export type CartFood = {
@@ -27,10 +31,20 @@ export type CartFood = {
   quantity: number;
 };
 
+export type FoodPostType = {
+  name: string;
+  categoryName: string;
+  ingredient: string;
+  price: string;
+  onSale: boolean;
+  image: string;
+};
+
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider = ({ children }: PropsWithChildren) => {
   const [basketFood, setBasketFood] = useState<CartFood[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const [imageUrl, setImageUrl] = useState<null | any>("/default.webp");
 
@@ -46,11 +60,34 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const foodPost = async (props: FoodPostType) => {
+    const { name, categoryName, ingredient, price, onSale, image } = props;
+    try {
+      const { data } = await api.post("/foods", {
+        name,
+        categoryName,
+        ingredient,
+        price,
+        onSale,
+        image,
+      });
+
+      toast.success(data.message);
+    } catch (error) {
+      console.log("createFood error");
+    }
+  };
+
   const addFoodToCart = ({ food, quantity }: CartFood) => {
     setBasketFood((prev) => {
       return [...prev, { food, quantity }];
     });
   };
+
+  // let currentPrice = 0;
+  // const addPrice = basketFood.forEach(
+  //   (element) => (currentPrice = +element.food.price)
+  // );
 
   useEffect(() => {
     if (!basketFood.length) return;
@@ -74,6 +111,10 @@ export const DataProvider = ({ children }: PropsWithChildren) => {
         addFoodToCart,
         imageUrl,
         setImageUrl,
+        foodPost,
+        totalPrice,
+        setTotalPrice,
+        // addPrice,
       }}
     >
       {children}

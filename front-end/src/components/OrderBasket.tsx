@@ -8,7 +8,6 @@ import { Card } from "./Card";
 
 export function OrderBasket() {
   const { basketFood } = useData();
-  console.log(basketFood, "kkkk");
 
   return (
     <Stack
