@@ -2,6 +2,7 @@ import { Close } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import { CustomButton } from ".";
 import { useData } from "./providers/DataProvider";
+import { useEffect } from "react";
 
 export type CardType = {
   name: String;
@@ -14,6 +15,7 @@ export type CardType = {
 
 export function Card({ image, name, price, ingredient, count }: CardType) {
   const { basketFood, setBasketFood } = useData();
+
   return (
     <Stack direction="row" gap={2}>
       <Stack width="50%" borderRadius={1} overflow="hidden">

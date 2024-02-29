@@ -25,74 +25,7 @@ export const Basket = () => {
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
       >
-        <Stack height="100%">
-          <Container sx={{ display: "flex" }}>
-            <Stack
-              onClick={() => {
-                setIsDrawerOpen(false);
-              }}
-            >
-              <ArrowBackIos />
-            </Stack>
-            <Typography
-              fontWeight={900}
-              fontSize="20px"
-              width="100%"
-              display="grid"
-              style={{ placeContent: "center" }}
-            >
-              Таны сагс
-            </Typography>
-          </Container>
-          <Container sx={{ width: "586px" }}>
-            <Stack overflow="hidden" gap={2} py={3}>
-              {basketFood.map((basketFood) => {
-                return (
-                  <Card
-                    name={basketFood.food.name}
-                    image={basketFood.food.image}
-                    price={basketFood.food.price}
-                    ingredient={basketFood.food.ingredient}
-                    count={basketFood.quantity}
-                  />
-                );
-              })}
-            </Stack>
-          </Container>
-          <Stack
-            direction="row"
-            bottom="0px"
-            left={0}
-            width="100%"
-            padding=" 49px 0px 69px 0px"
-            gap="10px"
-            boxShadow="0px 0px 8px 8px #BBBECD33"
-            bgcolor="white"
-            position="sticky"
-          >
-            <Container sx={{ display: "flex" }}>
-              <Stack width="256px">
-                <Typography color="#5E6166" fontWeight={400} fontSize="18px">
-                  Нийт төлөх дүн
-                </Typography>
-                <Typography color="#121316" fontWeight={700} fontSize="18px">
-                  {totalPrice}₮
-                </Typography>
-              </Stack>
-              <Link href={"/foodOrder"}>
-                <CustomButton
-                  label="Захиалах"
-                  variant="contained"
-                  sx={{ width: "256px", right: "0" }}
-                  onClick={() => {
-                    setIsDrawerOpen(false);
-                  }}
-                />
-              </Link>
-            </Container>
-          </Stack>
-        </Stack>
-        {/* <Stack
+        <Stack
           direction="row"
           alignItems="center"
           padding="9px 11px"
@@ -119,8 +52,8 @@ export const Basket = () => {
               Таны сагс
             </Typography>
           </Container>
-        </Stack> */}
-        {/* <Container sx={{ width: "586px" }}>
+        </Stack>
+        <Container sx={{ width: "586px" }}>
           <Stack overflow="hidden" gap={2} py={3}>
             {basketFood.map((basketFood) => {
               return (
@@ -134,8 +67,9 @@ export const Basket = () => {
               );
             })}
           </Stack>
-        </Container> */}
-        {/* <Stack
+        </Container>
+
+        <Stack
           direction="row"
           bottom="0px"
           width="100%"
@@ -154,7 +88,7 @@ export const Basket = () => {
                 {totalPrice}₮
               </Typography>
             </Stack>
-            <Link href={"/foodOrder"}>
+            <Link href={"/FoodOrder"}>
               <CustomButton
                 label="Захиалах"
                 variant="contained"
@@ -165,7 +99,7 @@ export const Basket = () => {
               />
             </Link>
           </Container>
-        </Stack> */}
+        </Stack>
       </Drawer>
     </>
   );

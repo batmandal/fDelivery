@@ -46,7 +46,7 @@ export function Footer() {
                     router.push("/terms-of-service");
                   }
                   if (item.label === "Хүргэлтийн бүс") {
-                    router.push("/home-page");
+                    router.push("/delivery-area");
                   }
                   if (item.label === "Нууцлалын бодлого") {
                     router.push("/privacy-policy");
